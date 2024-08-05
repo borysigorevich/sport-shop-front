@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosInstance } from "axios"
 
-axios.defaults.baseURL = process.env.CLIENT_SERVER || "https://backend-server-production-00f6.up.railway.app"
+axios.defaults.baseURL = process.env.CLIENT_SERVER || "http://localhost:9000"
 let region = undefined as any
 
 export async function seedData() {

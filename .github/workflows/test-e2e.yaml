@@ -21,14 +21,14 @@ env:
   TEST_POSTGRES_HOST: localhost
   TEST_POSTGREST_PORT: 5432
   PRODUCTION_POSTGRES_DATABASE: medusa_db
-  CLIENT_SERVER: https://backend-server-production-00f6.up.railway.app
+  CLIENT_SERVER: http://localhost:9000
 
   JWT_SECRET: something
   COOKIE_SECRET: something
 
   DATABASE_TYPE: "postgres"
   REDIS_URL: redis://localhost:6379
-  DATABASE_URL: postgres://test_medusa_user:password@localhost/test_medusa_db
+  DATABASE_URL: http://localhost:9000
   MEILISEARCH_HOST: http://localhost:7700
   MEILISEARCH_API_KEY: meili_api_key
 
