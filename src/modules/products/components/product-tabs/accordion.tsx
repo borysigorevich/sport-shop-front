@@ -73,6 +73,7 @@ const Item: React.FC<AccordionItemProps> = ({
           )}
         </div>
       </AccordionPrimitive.Header>
+      {/*@ts-ignore*/}
       <AccordionPrimitive.Content
         forceMount={forceMountContent}
         className={clx(
