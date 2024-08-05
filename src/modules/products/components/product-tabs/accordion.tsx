@@ -54,7 +54,8 @@ const Item: React.FC<AccordionItemProps> = ({
         className
       )}
     >
-      <AccordionPrimitive.AccordionHeader className="px-1">
+      {/*@ts-ignore*/}
+      <AccordionPrimitive.Header className="px-1">
         <div className="flex flex-col">
           <div className="flex w-full items-center justify-between">
             <div className="flex items-center gap-4">
@@ -70,7 +71,7 @@ const Item: React.FC<AccordionItemProps> = ({
             </Text>
           )}
         </div>
-      </AccordionPrimitive.AccordionHeader>
+      </AccordionPrimitive.Header>
       <AccordionPrimitive.Content
         forceMount={forceMountContent}
         className={clx(
