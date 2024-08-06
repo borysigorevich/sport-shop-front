@@ -1,6 +1,8 @@
 const { withStoreConfig } = require("./store-config")
 const store = require("./store.config.json")
 
+const publicMedusaBackendUrlWithoutProtocol = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL.replace(/^https?:\/\//, "")
+
 /**
  * @type {import('next').NextConfig}
  */
@@ -26,9 +28,10 @@ const nextConfig = withStoreConfig({
         hostname: "medusa-server-testing.s3.us-east-1.amazonaws.com",
       },
       {
-        hostname: process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL,
+        protocol: "https",
+        hostname: publicMedusaBackendUrlWithoutProtocol,
       },
-    ],
+    ]
   },
 })
 
