@@ -1,9 +1,7 @@
-import { Attributes } from '@modules/store/components/attributes';
-import { Suspense } from 'react';
-
 import SkeletonProductGrid from '@modules/skeletons/templates/skeleton-product-grid';
 import RefinementList from '@modules/store/components/refinement-list';
 import { SortOptions } from '@modules/store/components/refinement-list/sort-products';
+import { Suspense } from 'react';
 
 import PaginatedProducts from './paginated-products';
 
@@ -27,7 +25,6 @@ const StoreTemplate = ({
 		>
 			<div>
 				<RefinementList sortBy={sortBy || 'created_at'} />
-				<Attributes />
 			</div>
 			<div className="w-full">
 				<div className="mb-8 text-2xl-semi">

@@ -1,24 +1,27 @@
-import { notFound } from 'next/navigation';
-import { Suspense } from 'react';
-
-import { ProductCategoryWithChildren } from 'types/global';
+import { AttributesWrapper } from '@modules/categories/components/attributes/attributes-wrapper';
 import InteractiveLink from '@modules/common/components/interactive-link';
+import LocalizedClientLink from '@modules/common/components/localized-client-link';
+import { SkeletonProductFilters } from '@modules/skeletons/templates/skeleton-product-filters';
 import SkeletonProductGrid from '@modules/skeletons/templates/skeleton-product-grid';
 import RefinementList from '@modules/store/components/refinement-list';
 import { SortOptions } from '@modules/store/components/refinement-list/sort-products';
 import PaginatedProducts from '@modules/store/templates/paginated-products';
-import LocalizedClientLink from '@modules/common/components/localized-client-link';
+import { notFound } from "next/navigation"
+import { Suspense } from "react"
+import { ProductCategoryWithChildren } from "../../../types/global"
 
 export default function CategoryTemplate({
 	categories,
 	sortBy,
 	page,
 	countryCode,
+	searchParams,
 }: {
 	categories: ProductCategoryWithChildren[];
 	sortBy?: SortOptions;
 	page?: string;
 	countryCode: string;
+	searchParams: Record<string, string>;
 }) {
 	const pageNumber = page ? parseInt(page) : 1;
 
@@ -29,13 +32,12 @@ export default function CategoryTemplate({
 
 	return (
 		<div
-			className="flex flex-col small:flex-row small:items-start py-6 content-container"
+			className="grid small:grid-cols-[2fr_8fr] small:items-start py-6 content-container gap-10"
 			data-testid="category-container"
 		>
-			<RefinementList
-				sortBy={sortBy || 'created_at'}
-				data-testid="sort-by-container"
-			/>
+			<Suspense fallback={<SkeletonProductFilters />}>
+				<AttributesWrapper />
+			</Suspense>
 			<div className="w-full">
 				<div className="flex flex-row mb-8 text-2xl-semi gap-4">
 					{parents &&
@@ -51,7 +53,14 @@ export default function CategoryTemplate({
 								/
 							</span>
 						))}
-					<h1 data-testid="category-page-title">{category.name}</h1>
+					<div className={'flex items-center justify-between w-full'}>
+						<h1 data-testid="category-page-title">{category.name}</h1>
+						{/*<RefinementList*/}
+						{/*	sortBy={sortBy || 'created_at'}*/}
+						{/*	data-testid="sort-by-container"*/}
+						{/*	className={'!m-0'}*/}
+						{/*/>*/}
+					</div>
 				</div>
 				{category.description && (
 					<div className="mb-8 text-base-regular">
@@ -77,6 +86,7 @@ export default function CategoryTemplate({
 						page={pageNumber}
 						categoryId={category.id}
 						countryCode={countryCode}
+						searchParams={searchParams}
 					/>
 				</Suspense>
 			</div>
