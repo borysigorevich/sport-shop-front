@@ -27,8 +27,6 @@ export default function CategoryTemplate({
 
 	if (!category || !countryCode) notFound();
 
-	console.log('here');
-
 	return (
 		<div
 			className="flex flex-col small:flex-row small:items-start py-6 content-container"

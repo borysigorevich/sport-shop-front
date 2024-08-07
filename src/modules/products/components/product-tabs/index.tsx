@@ -43,7 +43,6 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
 };
 
 const ProductInfoTab = ({ product }: ProductTabsProps) => {
-	console.log({ product });
 	return (
 		<div className="text-small-regular py-8">
 			<div className="grid grid-cols-2 gap-x-8">

@@ -21,8 +21,6 @@ type Params = {
 export default async function StorePage({ searchParams, params }: Params) {
 	const { sortBy, page, ...rest } = searchParams;
 
-	console.log({ rest });
-
 	return (
 		<StoreTemplate
 			sortBy={sortBy}

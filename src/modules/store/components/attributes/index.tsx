@@ -20,8 +20,6 @@ export const Attributes = () => {
 	const router = useRouter();
 	const params = useSearchParams();
 
-	console.log({ params });
-
 	const [isPending, startTransition] = useTransition();
 
 	const [attributes, setAttributes] = useState<Attribute[]>([]);
@@ -68,11 +66,7 @@ export const Attributes = () => {
 
 	if (!attributes || attributes.length === 0) return null;
 
-	console.log({ attributes });
-
 	const handleChange = () => {};
-
-	console.log({ attributesParamsValue });
 
 	return (
 		<div className={'grid gap-4'}>
