@@ -38,6 +38,7 @@ const SortProducts = ({
 	return (
 		<div className="flex gap-3 items-center">
 			<span className={'min-w-fit text-sm'}>Sort By:</span>
+			{/*@ts-ignore*/}
 			<Select onValueChange={handleChange} value={sortBy}>
 				<Select.Trigger className={'h-8 min-w-[175px]'}>
 					<Select.Value placeholder="Select a currency" />

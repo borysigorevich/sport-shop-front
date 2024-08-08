@@ -1,8 +1,8 @@
 'use client';
 import { Checkbox, Label } from '@medusajs/ui';
 import Accordion from '@modules/products/components/product-tabs/accordion';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import React, { useMemo, useTransition } from 'react';
+import { useRouter } from 'next/navigation';
+import React, { useLayoutEffect, useOptimistic, useTransition } from 'react';
 
 type AttributeValue = {
 	id: string;
@@ -21,21 +21,39 @@ type AttributesProps = {
 };
 
 export const Attributes = ({ attributes, attributesSearchParams }: AttributesProps) => {
-	const pathname = usePathname();
 	const router = useRouter();
-	const params = useSearchParams();
 
+	const [optimisticAttributesSearchParams, setOptimisticAttributesSearchParams] =
+		useOptimistic(attributesSearchParams);
 	const [isPending, startTransition] = useTransition();
+
+	useLayoutEffect(() => {
+		startTransition(() => {
+			setOptimisticAttributesSearchParams(attributesSearchParams);
+		});
+	}, [attributesSearchParams]);
 
 	if (!attributes || attributes.length === 0) return null;
 
-	console.log({ attributes });
+	const expandedAccordionValues = attributes.reduce((acc, attribute) => {
+		const values = attribute.values.map((value) => value.id);
+		const isExpanded = values.some((value) =>
+			optimisticAttributesSearchParams.includes(value)
+		);
 
-	console.log({ attributesSearchParams });
+		if (isExpanded) {
+			acc.push(attribute.id);
+		}
+
+		return acc;
+	}, [] as string[]);
 
 	return (
-		<div className={'grid gap-4'}>
-			<Accordion type="multiple">
+		<div
+			className={'grid gap-4'}
+			data-attributes-pending={isPending ? '' : undefined}
+		>
+			<Accordion type="multiple" defaultValue={expandedAccordionValues}>
 				{attributes.map((attribute, i) => (
 					<Accordion.Item
 						key={i}
@@ -51,24 +69,37 @@ export const Attributes = ({ attributes, attributesSearchParams }: AttributesPro
 									<Label className={'flex items-center gap-2'}>
 										<Checkbox
 											id={value.id}
-											checked={attributesSearchParams.includes(value.id)}
+											checked={
+												isPending
+													? optimisticAttributesSearchParams.includes(
+															value.id
+													  )
+													: attributesSearchParams.includes(
+															value.id
+													  )
+											}
 											onCheckedChange={(checked) => {
+												const newAttributes = checked
+													? [
+															...optimisticAttributesSearchParams,
+															value.id,
+													  ]
+													: optimisticAttributesSearchParams.filter(
+															(a) => a !== value.id
+													  );
+
+												const newSearchParams =
+													new URLSearchParams(
+														newAttributes.map((attribute) => [
+															'attributes[]',
+															attribute,
+														])
+													);
+
 												startTransition(() => {
-													const searchParams =
-														new URLSearchParams(params);
-													if (checked) {
-														searchParams.append(
-															`attributes[]`,
-															value.id
-														);
-													} else {
-														searchParams.delete(
-															`attributes[]`,
-															value.id
-														);
-													}
-													router.push(
-														`${pathname}?${searchParams.toString()}`
+													router.push(`?${newSearchParams}`);
+													setOptimisticAttributesSearchParams(
+														newAttributes
 													);
 												});
 											}}

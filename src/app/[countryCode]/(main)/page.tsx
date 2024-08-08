@@ -4,8 +4,7 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
 	title: 'Ya Ye Whey',
-	description:
-		'Sport Nutrition, Vitamins, Supplements, and more.',
+	description: 'Sport Nutrition, Vitamins, Supplements, and more.',
 };
 
 const baseUri = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL + '/uploads/';

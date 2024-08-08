@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from "@lib/util/cn"
+import { cn } from '@lib/util/cn';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback } from 'react';
 
@@ -13,7 +13,11 @@ type RefinementListProps = {
 	className?: string;
 };
 
-const RefinementList = ({ sortBy, 'data-testid': dataTestId, className }: RefinementListProps) => {
+const RefinementList = ({
+	sortBy,
+	'data-testid': dataTestId,
+	className,
+}: RefinementListProps) => {
 	const router = useRouter();
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
@@ -34,7 +38,12 @@ const RefinementList = ({ sortBy, 'data-testid': dataTestId, className }: Refine
 	};
 
 	return (
-		<div className={cn("flex small:flex-col gap-12 py-4 mb-8 small:px-0 pl-6  small:ml-[1.675rem]", className)}>
+		<div
+			className={cn(
+				'flex small:flex-col gap-12 py-4 mb-8 small:px-0 pl-6  small:ml-[1.675rem]',
+				className
+			)}
+		>
 			<SortProducts
 				sortBy={sortBy}
 				setQueryParams={setQueryParams}
