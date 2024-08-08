@@ -44,7 +44,8 @@ export default async function CategoryTemplate({
 			<Suspense fallback={<SkeletonProductFilters />}>
 				<AttributesWrapper attributesSearchParams={attributesSearchParams} />
 			</Suspense>
-			<div className="w-full ">
+
+			<div className="w-full">
 				<div className="flex flex-row mb-4 text-2xl-semi gap-4">
 					{parents &&
 						parents.map((parent) => (

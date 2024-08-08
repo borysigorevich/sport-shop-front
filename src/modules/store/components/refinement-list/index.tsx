@@ -2,7 +2,7 @@
 
 import { cn } from '@lib/util/cn';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useCallback } from 'react';
+import { useCallback, useLayoutEffect, useOptimistic, useTransition } from "react"
 
 import SortProducts, { SortOptions } from './sort-products';
 
@@ -22,6 +22,9 @@ const RefinementList = ({
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
 
+	const [optimisticSortBy, setOptimisticSortBy] = useOptimistic(sortBy);
+	const [isPending, startTransition] = useTransition()
+
 	const createQueryString = useCallback(
 		(name: string, value: string) => {
 			const params = new URLSearchParams(searchParams);
@@ -34,8 +37,19 @@ const RefinementList = ({
 
 	const setQueryParams = (name: string, value: string) => {
 		const query = createQueryString(name, value);
-		router.push(`${pathname}?${query}`);
+		startTransition(() => {
+			setOptimisticSortBy(value as SortOptions);
+			router.push(`${pathname}?${query}`);
+		})
 	};
+
+	useLayoutEffect(() => {
+		startTransition(() => {
+			if(sortBy !== optimisticSortBy){
+				setOptimisticSortBy(sortBy)
+			}
+		})
+	}, [sortBy])
 
 	return (
 		<div
@@ -43,9 +57,10 @@ const RefinementList = ({
 				'flex small:flex-col gap-12 py-4 mb-8 small:px-0 pl-6  small:ml-[1.675rem]',
 				className
 			)}
+			data-sort-by-pending={isPending ? '' : undefined}
 		>
 			<SortProducts
-				sortBy={sortBy}
+				sortBy={optimisticSortBy}
 				setQueryParams={setQueryParams}
 				data-testid={dataTestId}
 			/>

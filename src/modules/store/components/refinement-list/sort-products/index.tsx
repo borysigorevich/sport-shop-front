@@ -30,6 +30,7 @@ const SortProducts = ({
 	sortBy,
 	setQueryParams,
 }: SortProductsProps) => {
+
 	const handleChange = (value: string) => {
 		const newSortBy = value as SortOptions;
 		setQueryParams('sortBy', newSortBy);
