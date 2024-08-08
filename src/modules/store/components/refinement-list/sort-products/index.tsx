@@ -1,8 +1,6 @@
 'use client';
 
-import { ChangeEvent } from 'react';
-
-import FilterRadioGroup from '@modules/common/components/filter-radio-group';
+import { Select } from '@medusajs/ui';
 
 export type SortOptions = 'price_asc' | 'price_desc' | 'created_at';
 
@@ -32,19 +30,27 @@ const SortProducts = ({
 	sortBy,
 	setQueryParams,
 }: SortProductsProps) => {
-	const handleChange = (e: ChangeEvent<HTMLButtonElement>) => {
-		const newSortBy = e.target.value as SortOptions;
+	const handleChange = (value: string) => {
+		const newSortBy = value as SortOptions;
 		setQueryParams('sortBy', newSortBy);
 	};
 
 	return (
-		<FilterRadioGroup
-			title="Sort by"
-			items={sortOptions}
-			value={sortBy}
-			handleChange={handleChange}
-			data-testid={dataTestId}
-		/>
+		<div className="flex gap-3 items-center">
+			<span className={'min-w-fit text-sm'}>Sort By:</span>
+			<Select onValueChange={handleChange} value={sortBy}>
+				<Select.Trigger className={'h-8 min-w-[175px]'}>
+					<Select.Value placeholder="Select a currency" />
+				</Select.Trigger>
+				<Select.Content>
+					{sortOptions.map((item) => (
+						<Select.Item key={item.value} value={item.value}>
+							{item.label}
+						</Select.Item>
+					))}
+				</Select.Content>
+			</Select>
+		</div>
 	);
 };
 

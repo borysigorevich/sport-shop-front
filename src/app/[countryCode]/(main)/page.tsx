@@ -3,9 +3,9 @@ import { CategoryPreview } from '@modules/categories/components/category-preview
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-	title: 'Medusa Next.js Starter Template',
+	title: 'Ya Ye Whey',
 	description:
-		'A performant frontend ecommerce starter template with Next.js 14 and Medusa.',
+		'Sport Nutrition, Vitamins, Supplements, and more.',
 };
 
 const baseUri = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL + '/uploads/';
@@ -30,7 +30,7 @@ export default async function Home({
 
 	return (
 		<>
-			<div className="p-12">
+			<div className="p-4 md:p-12">
 				<ul className="grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-x-6">
 					{categories.map((category) => {
 						return (

@@ -54,12 +54,12 @@ export default function CategoryTemplate({
 							</span>
 						))}
 					<div className={'flex items-center justify-between w-full'}>
-						<h1 data-testid="category-page-title">{category.name}</h1>
-						{/*<RefinementList*/}
-						{/*	sortBy={sortBy || 'created_at'}*/}
-						{/*	data-testid="sort-by-container"*/}
-						{/*	className={'!m-0'}*/}
-						{/*/>*/}
+						<h1 data-testid="category-page-title" className={'uppercase'}>{category.name}</h1>
+						<RefinementList
+							sortBy={sortBy || 'created_at'}
+							data-testid="sort-by-container"
+							className={'!m-0'}
+						/>
 					</div>
 				</div>
 				{category.description && (

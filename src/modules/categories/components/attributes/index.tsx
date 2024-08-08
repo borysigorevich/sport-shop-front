@@ -46,32 +46,34 @@ export const Attributes = ({ attributes }: AttributesProps) => {
 						{attribute.values.map((value, index) => (
 							<div key={value.id}>
 								<Label className={'flex items-center gap-2'}>
-								<Checkbox
-									id={value.id}
-									defaultChecked={attributesParamsValue.has(value.id)}
-									onCheckedChange={(checked) => {
-										startTransition(() => {
-											const searchParams = new URLSearchParams(
-												params
-											);
-											if (checked) {
-												searchParams.append(
-													`attributes[]`,
-													value.id
+									<Checkbox
+										id={value.id}
+										defaultChecked={attributesParamsValue.has(
+											value.id
+										)}
+										onCheckedChange={(checked) => {
+											startTransition(() => {
+												const searchParams = new URLSearchParams(
+													params
 												);
-											} else {
-												searchParams.delete(
-													`attributes[]`,
-													value.id
+												if (checked) {
+													searchParams.append(
+														`attributes[]`,
+														value.id
+													);
+												} else {
+													searchParams.delete(
+														`attributes[]`,
+														value.id
+													);
+												}
+												router.replace(
+													`${pathname}?${searchParams.toString()}`
 												);
-											}
-											router.replace(
-												`${pathname}?${searchParams.toString()}`
-											);
-										});
-									}}
-								/>
-								{value.value}
+											});
+										}}
+									/>
+									{value.value}
 								</Label>
 							</div>
 						))}
