@@ -1,4 +1,5 @@
-import { Text, clx } from '@medusajs/ui';
+import { cn } from '@lib/util/cn';
+import { clx, Text } from '@medusajs/ui';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import React from 'react';
 
@@ -14,6 +15,8 @@ type AccordionItemProps = AccordionPrimitive.AccordionItemProps & {
 	complete?: boolean;
 	active?: boolean;
 	triggerable?: boolean;
+	headerTitleClassName?: string;
+	childrenWrapperClassName?: string;
 	children: React.ReactNode;
 };
 
@@ -40,6 +43,8 @@ const Item: React.FC<AccordionItemProps> = ({
 	customTrigger = undefined,
 	forceMountContent = undefined,
 	triggerable,
+	headerTitleClassName,
+																							childrenWrapperClassName,
 	...props
 }) => {
 	return (
@@ -57,7 +62,14 @@ const Item: React.FC<AccordionItemProps> = ({
 				<div className="flex flex-col">
 					<div className="flex w-full items-center justify-between">
 						<div className="flex items-center gap-4">
-							<Text className="text-ui-fg-subtle text-sm">{title}</Text>
+							<Text
+								className={cn(
+									'text-ui-fg-subtle text-sm',
+									headerTitleClassName
+								)}
+							>
+								{title}
+							</Text>
 						</div>
 						{/*@ts-ignore*/}
 						<AccordionPrimitive.Trigger>
@@ -80,7 +92,7 @@ const Item: React.FC<AccordionItemProps> = ({
 			>
 				<div className="inter-base-regular group-radix-state-closed:animate-accordion-close">
 					{description && <Text>{description}</Text>}
-					<div className="w-full">{children}</div>
+					<div className={cn('w-full', childrenWrapperClassName)}>{children}</div>
 				</div>
 			</AccordionPrimitive.Content>
 		</AccordionPrimitive.Item>

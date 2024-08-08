@@ -23,23 +23,31 @@ export default function CategoryTemplate({
 	countryCode: string;
 	searchParams: Record<string, string>;
 }) {
+
+	let attributesSearchParams = Array.isArray(searchParams['attributes[]'])
+		? searchParams['attributes[]']
+		: searchParams['attributes[]']
+			? [searchParams['attributes[]']]
+			: [];
+
 	const pageNumber = page ? parseInt(page) : 1;
 
 	const category = categories[categories.length - 1];
 	const parents = categories.slice(0, categories.length - 1);
 
 	if (!category || !countryCode) notFound();
-
 	return (
 		<div
-			className="grid small:grid-cols-[2fr_8fr] small:items-start py-6 content-container gap-10"
+			className="grid small:grid-cols-[2fr_8fr] small:items-start py-6 content-container gap-12"
 			data-testid="category-container"
 		>
 			<Suspense fallback={<SkeletonProductFilters />}>
-				<AttributesWrapper />
+				<AttributesWrapper
+					attributesSearchParams={attributesSearchParams}
+				/>
 			</Suspense>
 			<div className="w-full">
-				<div className="flex flex-row mb-8 text-2xl-semi gap-4">
+				<div className="flex flex-row mb-4 text-2xl-semi gap-4">
 					{parents &&
 						parents.map((parent) => (
 							<span key={parent.id} className="text-ui-fg-subtle">
