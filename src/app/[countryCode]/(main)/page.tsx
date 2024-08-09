@@ -1,4 +1,4 @@
-import { getRegion, listCategories } from '@lib/data';
+import { getCategoriesList, getRegion, listCategories } from "@lib/data"
 import { CategoryPreview } from '@modules/categories/components/category-preview';
 import { Metadata } from 'next';
 
@@ -19,7 +19,7 @@ export default async function Home({
 }: {
 	params: { countryCode: string };
 }) {
-	const categories = await listCategories();
+	const categories = await listCategories()
 
 	const region = await getRegion(countryCode);
 
@@ -27,11 +27,13 @@ export default async function Home({
 		return null;
 	}
 
+	const highLevelCategories = categories.filter((category) => category.parent_category_id === null);
+
 	return (
 		<>
 			<div className="p-4 md:p-12">
 				<ul className="grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-x-6">
-					{categories.map((category) => {
+					{highLevelCategories.map((category) => {
 						return (
 							<CategoryPreview
 								key={category.id}
