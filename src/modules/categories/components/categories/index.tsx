@@ -19,7 +19,7 @@ export const Categories = ({ category }: CategoriesProps) => {
 				className={'first:border-t-0 pt-2'}
 				headerTitleClassName={'text-lg font-semibold text-black text-start'}
 			>
-				<div className={'pt-2 grid gap-2 pl-1'}>
+				<div className={'pt-2 grid gap-4 pl-1'}>
 					{category.category_children.map((child) => (
 						<InteractiveLink
 							key={child.id}
