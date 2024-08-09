@@ -69,7 +69,6 @@ export const Attributes = ({ attributes, attributesSearchParams }: AttributesPro
 
 	return (
 		<div
-			className={'grid gap-4'}
 			data-attributes-pending={isPending ? '' : undefined}
 		>
 			<Accordion type="multiple" defaultValue={expandedAccordionValues}>
@@ -82,7 +81,7 @@ export const Attributes = ({ attributes, attributesSearchParams }: AttributesPro
 						className={'first:border-t-0 pt-2'}
 						headerTitleClassName={'text-lg font-semibold text-black'}
 					>
-						<div className={'pt-4 grid gap-2'}>
+						<div className={'pt-2 grid gap-2'}>
 							{attribute.values.map((value, index) => (
 								<div key={value.id}>
 									<Label className={'flex items-center gap-2'}>

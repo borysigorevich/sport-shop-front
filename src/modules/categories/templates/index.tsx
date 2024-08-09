@@ -1,5 +1,5 @@
 import { AttributesWrapper } from '@modules/categories/components/attributes/attributes-wrapper';
-import InteractiveLink from '@modules/common/components/interactive-link';
+import { Categories } from '@modules/categories/components/categories';
 import LocalizedClientLink from '@modules/common/components/localized-client-link';
 import { SkeletonProductFilters } from '@modules/skeletons/templates/skeleton-product-filters';
 import SkeletonProductGrid from '@modules/skeletons/templates/skeleton-product-grid';
@@ -41,9 +41,14 @@ export default async function CategoryTemplate({
 			className="grid small:grid-cols-[2fr_8fr] small:items-start py-6 content-container gap-12 group"
 			data-testid="category-container"
 		>
-			<Suspense fallback={<SkeletonProductFilters />}>
-				<AttributesWrapper attributesSearchParams={attributesSearchParams} />
-			</Suspense>
+			<div className={'grid'}>
+				<Categories category={category} />
+
+				<Suspense fallback={<SkeletonProductFilters />}>
+					<AttributesWrapper attributesSearchParams={attributesSearchParams} />
+				</Suspense>
+			</div>
+
 			<div className="w-full ">
 				<div className="flex flex-row mb-4 text-2xl-semi gap-4">
 					{parents &&
@@ -73,19 +78,6 @@ export default async function CategoryTemplate({
 				{category.description && (
 					<div className="mb-8 text-base-regular">
 						<p>{category.description}</p>
-					</div>
-				)}
-				{category.category_children && (
-					<div className="mb-8 text-base-large">
-						<ul className="grid grid-cols-1 gap-2">
-							{category.category_children?.map((c) => (
-								<li key={c.id}>
-									<InteractiveLink href={`/categories/${c.handle}`}>
-										{c.name}
-									</InteractiveLink>
-								</li>
-							))}
-						</ul>
 					</div>
 				)}
 				<Suspense fallback={<SkeletonProductGrid />}>
