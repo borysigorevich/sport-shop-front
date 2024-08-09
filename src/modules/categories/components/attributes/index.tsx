@@ -50,16 +50,16 @@ export const Attributes = ({ attributes, attributesSearchParams }: AttributesPro
 	}, [attributes]);
 
 	const handleChange = (attributeId: string) => (checked: boolean) => {
-		const newSearchParams = new URLSearchParams(
-			params
-		);
-		let newAttributes: string[] = []
+		const newSearchParams = new URLSearchParams(params);
+		let newAttributes: string[] = [];
 
-		if(checked){
-			newAttributes = [...optimisticAttributesSearchParams, attributeId]
-			newSearchParams.append('attributes[]', attributeId)
+		if (checked) {
+			newAttributes = [...optimisticAttributesSearchParams, attributeId];
+			newSearchParams.append('attributes[]', attributeId);
 		} else {
-			newAttributes = optimisticAttributesSearchParams.filter((attrId) => attrId !== attributeId);
+			newAttributes = optimisticAttributesSearchParams.filter(
+				(attrId) => attrId !== attributeId
+			);
 			newSearchParams.delete('attributes[]', attributeId);
 		}
 

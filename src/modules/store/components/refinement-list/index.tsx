@@ -2,7 +2,7 @@
 
 import { cn } from '@lib/util/cn';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useLayoutEffect, useOptimistic, useTransition } from "react"
+import { useCallback, useLayoutEffect, useOptimistic, useTransition } from 'react';
 
 import SortProducts, { SortOptions } from './sort-products';
 
@@ -23,7 +23,7 @@ const RefinementList = ({
 	const searchParams = useSearchParams();
 
 	const [optimisticSortBy, setOptimisticSortBy] = useOptimistic(sortBy);
-	const [isPending, startTransition] = useTransition()
+	const [isPending, startTransition] = useTransition();
 
 	const createQueryString = useCallback(
 		(name: string, value: string) => {
@@ -40,16 +40,16 @@ const RefinementList = ({
 		startTransition(() => {
 			setOptimisticSortBy(value as SortOptions);
 			router.push(`${pathname}?${query}`);
-		})
+		});
 	};
 
 	useLayoutEffect(() => {
 		startTransition(() => {
-			if(sortBy !== optimisticSortBy){
-				setOptimisticSortBy(sortBy)
+			if (sortBy !== optimisticSortBy) {
+				setOptimisticSortBy(sortBy);
 			}
-		})
-	}, [sortBy])
+		});
+	}, [sortBy]);
 
 	return (
 		<div

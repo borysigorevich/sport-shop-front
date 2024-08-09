@@ -30,29 +30,36 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
 	return (
 		<>
 			<div
-				className="content-container flex flex-col small:flex-row small:items-start py-6 relative"
+				className="content-container grid py-6 relative gap-4 lg:gap-12"
 				data-testid="product-container"
 			>
-				<div className="flex flex-col small:sticky small:top-48 small:py-0 small:max-w-[300px] w-full py-8 gap-y-6">
-					<ProductInfo product={product} />
+				<div className={'grid lg:grid-cols-[4fr_6fr] gap-4 lg:gap-12'}>
+					<div className="w-full relative grid gap-4">
+						<div className={'lg:hidden'}>
+							<ProductInfo product={product} />
+						</div>
+						<ImageGallery images={product?.images || []} />
+					</div>
+					<div className="flex flex-col small:sticky small:top-48 small:py-0 small:max-w-[300px] w-full py-8 gap-y-4">
+						<div className={'hidden lg:block'}>
+							<ProductInfo product={product} />
+						</div>
+						<ProductOnboardingCta />
+						<Suspense
+							fallback={
+								<ProductActions
+									disabled={true}
+									product={product}
+									region={region}
+								/>
+							}
+						>
+							<ProductActionsWrapper id={product.id} region={region} />
+						</Suspense>
+					</div>
+				</div>
+				<div className={'lg:max-w-2xl w-full mx-auto'}>
 					<ProductTabs product={product} />
-				</div>
-				<div className="block w-full relative">
-					<ImageGallery images={product?.images || []} />
-				</div>
-				<div className="flex flex-col small:sticky small:top-48 small:py-0 small:max-w-[300px] w-full py-8 gap-y-12">
-					<ProductOnboardingCta />
-					<Suspense
-						fallback={
-							<ProductActions
-								disabled={true}
-								product={product}
-								region={region}
-							/>
-						}
-					>
-						<ProductActionsWrapper id={product.id} region={region} />
-					</Suspense>
 				</div>
 			</div>
 			<div
