@@ -34,6 +34,8 @@ module.exports = {
 					80: '#1F2937',
 					90: '#111827',
 				},
+				black: 'rgb(34,34,34)',
+				'black-26': 'rgba(26,26,26)',
 			},
 			borderRadius: {
 				none: '0px',
@@ -63,7 +65,7 @@ module.exports = {
 			},
 			fontFamily: {
 				sans: [
-					'Inter',
+					'Proximanova',
 					'-apple-system',
 					'BlinkMacSystemFont',
 					'Segoe UI',

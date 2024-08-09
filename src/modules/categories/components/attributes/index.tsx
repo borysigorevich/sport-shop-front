@@ -79,7 +79,7 @@ export const Attributes = ({ attributes, attributesSearchParams }: AttributesPro
 						headingSize="medium"
 						value={attribute.id}
 						className={'first:border-t-0 pt-2'}
-						headerTitleClassName={'text-lg font-semibold text-black'}
+						headerTitleClassName={'text-lg font-semibold text-black tracking-wider'}
 					>
 						<div className={'pt-2 grid gap-3'}>
 							{attribute.values.map((value, index) => (
