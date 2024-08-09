@@ -43,6 +43,9 @@ module.exports = {
 				large: '16px',
 				circle: '9999px',
 			},
+			boxShadow: {
+				popover: 'var(--popover-shadow)'
+			},
 			maxWidth: {
 				'8xl': '100rem',
 			},

@@ -1,7 +1,7 @@
 import {
 	ProductCategory,
 	ProductCollection,
-	Region,
+	Region, StoreGetProductCategoriesParams,
 	StoreGetProductsParams,
 	StorePostAuthReq,
 	StorePostCartsCartReq,
@@ -9,7 +9,7 @@ import {
 	StorePostCustomersCustomerAddressesReq,
 	StorePostCustomersCustomerReq,
 	StorePostCustomersReq,
-} from '@medusajs/medusa';
+} from "@medusajs/medusa"
 import { PricedProduct } from '@medusajs/medusa/dist/types/pricing';
 import { cache } from 'react';
 
@@ -658,13 +658,14 @@ export const listCategories = cache(async function () {
 
 export const getCategoriesList = cache(async function (
 	offset: number = 0,
-	limit: number = 100
+	limit: number = 100,
+	options?: StoreGetProductCategoriesParams
 ): Promise<{
 	product_categories: ProductCategoryWithChildren[];
 	count: number;
 }> {
 	const { product_categories, count } = await medusaClient.productCategories
-		.list({ limit, offset }, { next: { tags: ['categories'] } })
+		.list({ limit, offset, ...options }, { next: { tags: ['categories'] } })
 		.catch((err) => {
 			throw err;
 		});
