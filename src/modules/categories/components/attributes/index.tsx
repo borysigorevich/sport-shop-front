@@ -64,9 +64,9 @@ export const Attributes = ({ attributes, attributesSearchParams }: AttributesPro
 	return (
 		<div data-attributes-pending={isPending ? '' : undefined}>
 			<Accordion type="multiple" defaultValue={expandedAccordionValues}>
-				{attributes.map((attribute, i) => (
+				{attributes.map((attribute) => (
 					<Accordion.Item
-						key={i}
+						key={attribute.id}
 						title={attribute.name}
 						headingSize="medium"
 						value={attribute.id}

@@ -15,6 +15,8 @@ type AccordionItemProps = AccordionPrimitive.AccordionItemProps & {
 	complete?: boolean;
 	active?: boolean;
 	triggerable?: boolean;
+	headerTitleElement?: React.ReactNode;
+	headerClassName?: string;
 	headerTitleClassName?: string;
 	childrenWrapperClassName?: string;
 	children: React.ReactNode;
@@ -43,6 +45,8 @@ const Item: React.FC<AccordionItemProps> = ({
 	customTrigger = undefined,
 	forceMountContent = undefined,
 	triggerable,
+	headerTitleElement,
+	headerClassName,
 	headerTitleClassName,
 	childrenWrapperClassName,
 	...props
@@ -58,23 +62,23 @@ const Item: React.FC<AccordionItemProps> = ({
 			)}
 		>
 			{/*@ts-ignore*/}
-			<AccordionPrimitive.Header className="px-1">
+			<AccordionPrimitive.Header className={cn("px-1", headerClassName)}>
 				<div className="flex flex-col">
 					{/*@ts-ignore*/}
 					<AccordionPrimitive.Trigger
 						className={'flex w-full items-center justify-between'}
 					>
 						<div className="flex items-center gap-4">
-							<Text
+							{headerTitleElement || <Text
 								className={cn(
 									'text-ui-fg-subtle text-sm',
 									headerTitleClassName
 								)}
 							>
 								{title}
-							</Text>
+							</Text>}
 						</div>
-						{customTrigger || <MorphingTrigger />}
+						{!props.disabled && (customTrigger || <MorphingTrigger />)}
 					</AccordionPrimitive.Trigger>
 					{subtitle && (
 						<Text as="span" size="small" className="mt-1">

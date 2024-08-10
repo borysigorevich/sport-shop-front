@@ -1,22 +1,64 @@
 'use client';
 import { Popover, PopoverBackdrop, PopoverButton, PopoverPanel } from '@headlessui/react';
+import Accordion from '@modules/products/components/product-tabs/accordion';
 import Link from 'next/link';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { ProductCategoryWithChildren } from '../../../../types/global';
 
 type CategoriesMenuProps = {
 	categories: ProductCategoryWithChildren[];
 };
 
-const MobileSubCategories = ({ category, back }: { category: ProductCategoryWithChildren, back: VoidFunction }) => {
+const MobileSubCategories = ({
+	category,
+	back,
+}: {
+	category: ProductCategoryWithChildren;
+	back: VoidFunction;
+}) => {
 	return (
 		<div>
-			<div className={'flex items-center p-6 gap-4 cursor-pointer'} onClick={back}>
-				<span className={'text-xl text-black'}>
-					{'<'}
-				</span>
+			<div className={'flex items-center p-6 gap-4 cursor-pointer mb-2 pb-4'} onClick={back}>
+				<span className={'text-xl text-black'}>{'<'}</span>
 				<h3 className={'text-xl text-red-base font-bold'}>{category.name}</h3>
 			</div>
+
+			<Accordion type="multiple">
+				{category.category_children.map((categoryChild, index) => (
+					<Accordion.Item
+						key={categoryChild.id}
+						title={categoryChild.name}
+						headingSize="medium"
+						value={categoryChild.id}
+						disabled={!categoryChild.category_children.length}
+						className={'first:border-t-0 pt-2'}
+						headerClassName={'px-6'}
+						headerTitleElement={
+							<Link href={`./categories/${categoryChild.handle}`}
+								className={'text-black text-lg font-semibold tracking-wider'}
+							>
+								{categoryChild.name}
+							</Link>
+						}
+						headerTitleClassName={
+							'text-lg font-semibold text-black tracking-wider'
+						}
+					>
+						<div className={'pt-2 grid gap-3 px-5'}>
+							{categoryChild.category_children.map((child, index) => (
+								<div key={child.id}>
+									<Link
+										href={`./categories/${categoryChild.handle}/${child.handle}`}
+										className={'text-black-26'}
+									>
+										{child.name}
+									</Link>
+								</div>
+							))}
+						</div>
+					</Accordion.Item>
+				))}
+			</Accordion>
 		</div>
 	);
 };
@@ -111,12 +153,12 @@ const MobileHighLevelCategoriesList = ({
 
 	const handleBack = () => {
 		setSelectedCategory(null);
-	}
+	};
 
 	return (
 		<ul className={'grid gap-0.5 lg:hidden'}>
 			{selectedCategory ? (
-				<MobileSubCategories category={selectedCategory} back={handleBack}/>
+				<MobileSubCategories category={selectedCategory} back={handleBack} />
 			) : (
 				categories.map((category) => {
 					return (
@@ -126,12 +168,12 @@ const MobileHighLevelCategoriesList = ({
 									'px-6 py-4 group/link-wrapper flex items-center justify-between cursor-pointer'
 								}
 								onClick={() => {
-									setSelectedCategory(category)
+									setSelectedCategory(category);
 								}}
 							>
 								<Link
 									onClick={(event) => {
-										event.stopPropagation()
+										event.stopPropagation();
 									}}
 									href={`./categories/${category.handle}`}
 									className="text-black-26 whitespace-nowrap font-bold relative before:absolute before:inset-0 before:py-6 before:px-[60%] before:top-1/2 before:-translate-y-1/2 before:left-1/2 before:-translate-x-1/2 hover:underline"
@@ -139,9 +181,7 @@ const MobileHighLevelCategoriesList = ({
 									{category.name}
 								</Link>
 
-								<span className={'text-black'}>
-									{'>'}
-								</span>
+								<span className={'text-black'}>{'>'}</span>
 							</div>
 						</li>
 					);
@@ -206,15 +246,13 @@ const CategoriesMenu = ({ categories }: CategoriesMenuProps) => {
 					<PopoverPanel
 						transition
 						className="flex flex-col absolute w-full min-w-[350px] sm:pr-0 z-[100] inset-x-0 text-sm text-ui-fg-on-color h-[calc(100vh_-_63px)] lg:h-fit
-												 transition  data-[closed]:translate-y-1 data-[closed]:opacity-0 left-0 top-[64px] lg:left-[calc(100vw_*_0.1_-_200px)] lg:top-[42.5px]"
+												 transition  data-[closed]:translate-y-1 data-[closed]:opacity-0 left-0 top-[64px] lg:left-[calc(100vw_*_0.1_-_200px)] lg:top-[42.5px] overflow-auto lg:overflow-visible"
 					>
 						<div
 							data-testid="nav-menu-popup"
 							className="flex flex-col h-full bg-white justify-between border border-t-0 border-ui-border-base min-w-[324px]"
 						>
-							<MobileHighLevelCategoriesList
-								categories={categories}
-							/>
+							<MobileHighLevelCategoriesList categories={categories} />
 							<DesktopHighLevelCategoriesList categories={categories} />
 						</div>
 					</PopoverPanel>
