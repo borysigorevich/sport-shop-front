@@ -40,9 +40,9 @@ export default async function CategoryTemplate({
 
 	return (
 		<div className="py-6 content-container  group" data-testid="category-container">
-			<Suspense fallback={<SkeletonCategoriesBreadcrumbs categoriesCount={categoriesParamsCount} />}>
+			{/*<Suspense fallback={<SkeletonCategoriesBreadcrumbs categoriesCount={categoriesParamsCount} />}>*/}
 				<CategoriesBreadcrumbsWrapper />
-			</Suspense>
+			{/*</Suspense>*/}
 
 			<div className={'grid small:grid-cols-[2fr_8fr] small:items-start gap-12'}>
 				<div className={'grid'}>
