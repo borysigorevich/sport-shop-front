@@ -659,13 +659,13 @@ export const listCategories = cache(async function () {
 export const getCategoriesList = cache(async function (
 	offset: number = 0,
 	limit: number = 100,
-	options?: StoreGetProductCategoriesParams
+	params?: StoreGetProductCategoriesParams
 ): Promise<{
 	product_categories: ProductCategoryWithChildren[];
 	count: number;
 }> {
 	const { product_categories, count } = await medusaClient.productCategories
-		.list({ limit, offset, ...options }, { next: { tags: ['categories'] } })
+		.list({ limit, offset, ...params }, { next: { tags: ['categories'] } })
 		.catch((err) => {
 			throw err;
 		});
@@ -677,7 +677,8 @@ export const getCategoriesList = cache(async function (
 });
 
 export const getCategoryByHandle = cache(async function (
-	categoryHandle: string[]
+	categoryHandle: string[],
+	params?: StoreGetProductCategoriesParams
 ): Promise<{
 	product_categories: ProductCategoryWithChildren[];
 }> {
@@ -692,6 +693,7 @@ export const getCategoryByHandle = cache(async function (
 			.list(
 				{
 					handle: handle,
+					...params
 				},
 				{
 					next: {

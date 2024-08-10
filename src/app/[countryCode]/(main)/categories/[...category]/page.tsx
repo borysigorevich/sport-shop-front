@@ -65,7 +65,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function CategoryPage({ params, searchParams }: Props) {
 	const { sortBy, page, ...rest } = searchParams;
 
-	const { product_categories } = await getCategoryByHandle(params.category).then(
+	const { product_categories } = await getCategoryByHandle(params.category, {include_descendants_tree: true}).then(
 		(product_categories) => product_categories
 	);
 
