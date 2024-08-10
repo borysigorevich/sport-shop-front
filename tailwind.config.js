@@ -36,6 +36,9 @@ module.exports = {
 				},
 				black: 'rgb(34,34,34)',
 				'black-26': 'rgba(26,26,26)',
+				red: {
+					base: '#e60d2e'
+				}
 			},
 			borderRadius: {
 				none: '0px',

@@ -105,6 +105,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
 			page={page}
 			countryCode={params.countryCode}
 			searchParams={rest}
+			categoriesParamsCount={params.category.length}
 		/>
 	);
 }
