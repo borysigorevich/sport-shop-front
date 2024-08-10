@@ -1,9 +1,9 @@
-import { getCategoriesList } from '@lib/data';
+import { listCategories } from "@lib/data"
 import { CategoriesBreadcrumbs } from '@modules/categories/components/categories-breadcrumbs/index';
-import React from 'react';
+import React, { memo } from "react"
 
-export const CategoriesBreadcrumbsWrapper = async () => {
-	const { product_categories } = await getCategoriesList(0, 100);
+export const CategoriesBreadcrumbsWrapper = memo(async function CategoriesBreadcrumbsWrapper() {
+	const categories = await listCategories({ include_descendants_tree: true });
 
-	return <CategoriesBreadcrumbs categories={product_categories} />;
-};
+	return <CategoriesBreadcrumbs categories={categories} />;
+});

@@ -17,10 +17,5 @@ export const ProximaNova = localFont({
 			style: 'normal',
 			weight: '800',
 		},
-		{
-			path: './proximanova_black.otf',
-			style: 'normal',
-			weight: '900',
-		},
 	],
 });
