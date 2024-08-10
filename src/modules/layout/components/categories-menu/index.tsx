@@ -1,5 +1,5 @@
 'use client';
-import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
+import { Popover, PopoverBackdrop, PopoverButton, PopoverPanel } from "@headlessui/react"
 import Link from 'next/link';
 import { ProductCategoryWithChildren } from '../../../../types/global';
 
@@ -18,7 +18,7 @@ const SubCategories = ({
 		<Popover>
 			<PopoverButton
 				className={
-					'text-black [&[data-open]]:text-white group-hover/link-wrapper:text-white'
+					'text-black data-[open]:text-white group-hover/link-wrapper:text-white'
 				}
 			>
 				{'>'}
@@ -89,8 +89,8 @@ const SubCategories = ({
 
 const CategoriesMenu = ({ categories }: CategoriesMenuProps) => {
 	return (
-		<div className="order-1 lg:order-2 flex items-center h-full">
-			<Popover className="relative flex">
+		<div className="order-1 lg:order-2 flex items-center">
+			<Popover className="lg:relative flex">
 				<>
 					<div className="flex">
 						<PopoverButton
@@ -101,10 +101,14 @@ const CategoriesMenu = ({ categories }: CategoriesMenuProps) => {
 						</PopoverButton>
 					</div>
 
+					<PopoverBackdrop
+						transition
+						className="fixed inset-0 data-[closed]:opacity-0 lg:backdrop-blur-sm transition-all bg-black/15 -z-10" />
+
 					<PopoverPanel
 						transition
-						className="flex flex-col absolute w-full min-w-[350px] sm:pr-0 z-[100] inset-x-0 text-sm text-ui-fg-on-color
-												 transition  data-[closed]:translate-y-1 data-[closed]:opacity-0 left-[calc(100vw_*_0.1_-_200px)] top-[42.5px]"
+						className="flex flex-col absolute w-full min-w-[350px] sm:pr-0 z-[100] inset-x-0 text-sm text-ui-fg-on-color h-[calc(100vh_-_63px)] lg:h-fit
+												 transition  data-[closed]:translate-y-1 data-[closed]:opacity-0 left-0 top-[64px] lg:left-[calc(100vw_*_0.1_-_200px)] lg:top-[42.5px]"
 					>
 						<div
 							data-testid="nav-menu-popup"
