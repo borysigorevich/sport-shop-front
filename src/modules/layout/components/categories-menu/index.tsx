@@ -1,13 +1,27 @@
 'use client';
-import { Popover, PopoverBackdrop, PopoverButton, PopoverPanel } from "@headlessui/react"
+import { Popover, PopoverBackdrop, PopoverButton, PopoverPanel } from '@headlessui/react';
 import Link from 'next/link';
+import { useState } from 'react';
 import { ProductCategoryWithChildren } from '../../../../types/global';
 
 type CategoriesMenuProps = {
 	categories: ProductCategoryWithChildren[];
 };
 
-const SubCategories = ({
+const MobileSubCategories = ({ category, back }: { category: ProductCategoryWithChildren, back: VoidFunction }) => {
+	return (
+		<div>
+			<div className={'flex items-center p-6 gap-4 cursor-pointer'} onClick={back}>
+				<span className={'text-xl text-black'}>
+					{'<'}
+				</span>
+				<h3 className={'text-xl text-red-base font-bold'}>{category.name}</h3>
+			</div>
+		</div>
+	);
+};
+
+const DesktopSubCategories = ({
 	categoryChildren,
 	parentCategory,
 }: {
@@ -87,6 +101,89 @@ const SubCategories = ({
 	);
 };
 
+const MobileHighLevelCategoriesList = ({
+	categories,
+}: {
+	categories: ProductCategoryWithChildren[];
+}) => {
+	const [selectedCategory, setSelectedCategory] =
+		useState<ProductCategoryWithChildren | null>(null);
+
+	const handleBack = () => {
+		setSelectedCategory(null);
+	}
+
+	return (
+		<ul className={'grid gap-0.5 lg:hidden'}>
+			{selectedCategory ? (
+				<MobileSubCategories category={selectedCategory} back={handleBack}/>
+			) : (
+				categories.map((category) => {
+					return (
+						<li key={category.id} className="grid gap-2">
+							<div
+								className={
+									'px-6 py-4 group/link-wrapper flex items-center justify-between cursor-pointer'
+								}
+								onClick={() => {
+									setSelectedCategory(category)
+								}}
+							>
+								<Link
+									onClick={(event) => {
+										event.stopPropagation()
+									}}
+									href={`./categories/${category.handle}`}
+									className="text-black-26 whitespace-nowrap font-bold relative before:absolute before:inset-0 before:py-6 before:px-[60%] before:top-1/2 before:-translate-y-1/2 before:left-1/2 before:-translate-x-1/2 hover:underline"
+								>
+									{category.name}
+								</Link>
+
+								<span className={'text-black'}>
+									{'>'}
+								</span>
+							</div>
+						</li>
+					);
+				})
+			)}
+		</ul>
+	);
+};
+
+const DesktopHighLevelCategoriesList = ({
+	categories,
+}: {
+	categories: ProductCategoryWithChildren[];
+}) => {
+	return (
+		<ul className="hidden gap-0.5 w-full relative py-2 lg:grid">
+			{categories.map((category) => {
+				return (
+					<li key={category.id} className="grid gap-2">
+						<div
+							className={
+								'px-6 py-4 hover:bg-red-base group/link-wrapper flex items-center justify-between [&:has([data-open])]:bg-red-base [&:has([data-open])>a]:text-white'
+							}
+						>
+							<Link
+								href={`./categories/${category.handle}`}
+								className="text-black-26 whitespace-nowrap font-bold group-hover/link-wrapper:text-white relative before:absolute before:inset-0 before:py-6 before:px-[60%] before:top-1/2 before:-translate-y-1/2 before:left-1/2 before:-translate-x-1/2 hover:underline"
+							>
+								{category.name}
+							</Link>
+							<DesktopSubCategories
+								categoryChildren={category.category_children}
+								parentCategory={category}
+							/>
+						</div>
+					</li>
+				);
+			})}
+		</ul>
+	);
+};
+
 const CategoriesMenu = ({ categories }: CategoriesMenuProps) => {
 	return (
 		<div className="order-1 lg:order-2 flex items-center">
@@ -103,7 +200,8 @@ const CategoriesMenu = ({ categories }: CategoriesMenuProps) => {
 
 					<PopoverBackdrop
 						transition
-						className="fixed inset-0 data-[closed]:opacity-0 lg:backdrop-blur-sm transition-all bg-black/15 -z-10" />
+						className="fixed inset-0 data-[closed]:opacity-0 lg:backdrop-blur-sm transition-all bg-black/15 -z-10"
+					/>
 
 					<PopoverPanel
 						transition
@@ -114,32 +212,10 @@ const CategoriesMenu = ({ categories }: CategoriesMenuProps) => {
 							data-testid="nav-menu-popup"
 							className="flex flex-col h-full bg-white justify-between border border-t-0 border-ui-border-base min-w-[324px]"
 						>
-							<ul className="grid gap-0.5 w-full relative py-2">
-								{categories.map((category) => {
-									return (
-										<li key={category.id} className="grid gap-2">
-											<div
-												className={
-													'px-6 py-4 hover:bg-red-base group/link-wrapper flex items-center justify-between [&:has([data-open])]:bg-red-base [&:has([data-open])>a]:text-white'
-												}
-											>
-												<Link
-													href={`./categories/${category.handle}`}
-													className="text-black-26 whitespace-nowrap font-bold group-hover/link-wrapper:text-white relative before:absolute before:inset-0 before:py-6 before:px-[60%] before:top-1/2 before:-translate-y-1/2 before:left-1/2 before:-translate-x-1/2 hover:underline"
-												>
-													{category.name}
-												</Link>
-												<SubCategories
-													categoryChildren={
-														category.category_children
-													}
-													parentCategory={category}
-												/>
-											</div>
-										</li>
-									);
-								})}
-							</ul>
+							<MobileHighLevelCategoriesList
+								categories={categories}
+							/>
+							<DesktopHighLevelCategoriesList categories={categories} />
 						</div>
 					</PopoverPanel>
 				</>
