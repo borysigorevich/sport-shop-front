@@ -2,7 +2,7 @@
 import { Checkbox, Label } from '@medusajs/ui';
 import Accordion from '@modules/products/components/product-tabs/accordion';
 import { useRouter, useSearchParams } from 'next/navigation';
-import React, { useLayoutEffect, useMemo, useOptimistic, useTransition } from 'react';
+import React, { useMemo, useOptimistic, useTransition } from 'react';
 
 type AttributeValue = {
 	id: string;
@@ -28,12 +28,6 @@ export const Attributes = ({ attributes, attributesSearchParams }: AttributesPro
 		useOptimistic(attributesSearchParams);
 	const [isPending, startTransition] = useTransition();
 
-	useLayoutEffect(() => {
-		startTransition(() => {
-			setOptimisticAttributesSearchParams(attributesSearchParams);
-		});
-	}, [attributesSearchParams]);
-
 	const expandedAccordionValues = useMemo(() => {
 		return attributes.reduce((acc, attribute) => {
 			const values = attribute.values.map((value) => value.id);
@@ -57,7 +51,7 @@ export const Attributes = ({ attributes, attributesSearchParams }: AttributesPro
 		const searchParams = new URLSearchParams(params);
 		searchParams.delete('attributes[]');
 
-		newAttributes.forEach(attr => searchParams.append('attributes[]', attr));
+		newAttributes.forEach((attr) => searchParams.append('attributes[]', attr));
 
 		startTransition(() => {
 			router.push(`?${searchParams}`);
@@ -68,9 +62,7 @@ export const Attributes = ({ attributes, attributesSearchParams }: AttributesPro
 	if (!attributes || attributes.length === 0) return null;
 
 	return (
-		<div
-			data-attributes-pending={isPending ? '' : undefined}
-		>
+		<div data-attributes-pending={isPending ? '' : undefined}>
 			<Accordion type="multiple" defaultValue={expandedAccordionValues}>
 				{attributes.map((attribute, i) => (
 					<Accordion.Item
@@ -79,7 +71,9 @@ export const Attributes = ({ attributes, attributesSearchParams }: AttributesPro
 						headingSize="medium"
 						value={attribute.id}
 						className={'first:border-t-0 pt-2'}
-						headerTitleClassName={'text-lg font-semibold text-black tracking-wider'}
+						headerTitleClassName={
+							'text-lg font-semibold text-black tracking-wider'
+						}
 					>
 						<div className={'pt-2 grid gap-3'}>
 							{attribute.values.map((value, index) => (
