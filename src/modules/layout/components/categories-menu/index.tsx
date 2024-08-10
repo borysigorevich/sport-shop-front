@@ -197,7 +197,7 @@ const DesktopHighLevelCategoriesList = ({
 	categories: ProductCategoryWithChildren[];
 }) => {
 	return (
-		<ul className="hidden gap-0.5 w-full relative py-2 lg:grid bg-white overflow-auto h-full">
+		<ul className="hidden gap-0.5 w-full relative py-2 lg:grid bg-white h-full">
 			{categories.map((category) => {
 				return (
 					<li key={category.id} className="grid gap-2">
