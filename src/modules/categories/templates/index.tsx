@@ -1,7 +1,6 @@
 import { AttributesWrapper } from '@modules/categories/components/attributes/attributes-wrapper';
 import { Categories } from '@modules/categories/components/categories';
 import { CategoriesBreadcrumbsWrapper } from '@modules/categories/components/categories-breadcrumbs/categories-breadcrumbs-wrapper';
-import { SkeletonCategoriesBreadcrumbs } from '@modules/skeletons/components/skeleton-categories-breadcrumbs';
 import { SkeletonProductFilters } from '@modules/skeletons/templates/skeleton-product-filters';
 import SkeletonProductGrid from '@modules/skeletons/templates/skeleton-product-grid';
 import RefinementList from '@modules/store/components/refinement-list';
@@ -17,14 +16,12 @@ export default async function CategoryTemplate({
 	page,
 	countryCode,
 	searchParams,
-	categoriesParamsCount
 }: {
 	categories: ProductCategoryWithChildren[];
 	sortBy?: SortOptions;
 	page?: string;
 	countryCode: string;
 	searchParams: Record<string, string>;
-	categoriesParamsCount: number;
 }) {
 	let attributesSearchParams = Array.isArray(searchParams['attributes[]'])
 		? searchParams['attributes[]']
@@ -40,15 +37,11 @@ export default async function CategoryTemplate({
 
 	return (
 		<div className="py-6 content-container  group" data-testid="category-container">
-			{/*<Suspense fallback={<SkeletonCategoriesBreadcrumbs categoriesCount={categoriesParamsCount} />}>*/}
-				<CategoriesBreadcrumbsWrapper />
-			{/*</Suspense>*/}
+			<CategoriesBreadcrumbsWrapper />
 
 			<div className={'grid small:grid-cols-[2fr_8fr] small:items-start gap-12'}>
 				<div className={'grid'}>
-
 					<Suspense fallback={<SkeletonProductFilters />}>
-
 						<Categories category={category} />
 
 						<AttributesWrapper

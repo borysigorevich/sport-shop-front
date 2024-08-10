@@ -23,7 +23,7 @@ export const CategoriesBreadcrumbs = ({ categories }: CategoriesBreadcrumbsProps
 
 	return (
 		<div className={'mb-3'}>
-			<ul className={'flex gap-2 pl-1'}>
+			<ul className={'flex items-center gap-2 pl-1'}>
 				<li className={'text-black text-[13px] underline hover:text-red-base'}>
 					<Link href={`/${countryCode}`}>Ya Ye Whey</Link>
 				</li>
