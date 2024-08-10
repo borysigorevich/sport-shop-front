@@ -88,61 +88,58 @@ const SubCategories = ({
 };
 
 const CategoriesMenu = ({ categories }: CategoriesMenuProps) => {
-	console.log({ categories });
 	return (
-		<div className="h-full">
-			<div className="flex items-center h-full">
-				<Popover className="relative flex">
-					<>
-						<div className="flex">
-							<PopoverButton
-								data-testid="nav-menu-button"
-								className="relative h-full flex items-center transition-all ease-out duration-200 focus:outline-none hover:text-ui-fg-base"
-							>
-								Menu
-							</PopoverButton>
-						</div>
-
-						<PopoverPanel
-							transition
-							className="flex flex-col absolute w-full min-w-[350px] sm:pr-0 z-[100] inset-x-0 text-sm text-ui-fg-on-color
-												 transition  data-[closed]:translate-y-1 data-[closed]:opacity-0 left-[calc(100vw_*_0.1_-_200px)] top-[42.5px]"
+		<div className="order-1 lg:order-2 flex items-center h-full">
+			<Popover className="relative flex">
+				<>
+					<div className="flex">
+						<PopoverButton
+							data-testid="nav-menu-button"
+							className="relative h-full flex items-center transition-all ease-out duration-200 focus:outline-none hover:text-ui-fg-base"
 						>
-							<div
-								data-testid="nav-menu-popup"
-								className="flex flex-col h-full bg-white justify-between border border-t-0 border-ui-border-base min-w-[324px]"
-							>
-								<ul className="grid gap-0.5 w-full relative py-2">
-									{categories.map((category) => {
-										return (
-											<li key={category.id} className="grid gap-2">
-												<div
-													className={
-														'px-6 py-4 hover:bg-red-base group/link-wrapper flex items-center justify-between [&:has([data-open])]:bg-red-base [&:has([data-open])>a]:text-white'
-													}
+							Menu
+						</PopoverButton>
+					</div>
+
+					<PopoverPanel
+						transition
+						className="flex flex-col absolute w-full min-w-[350px] sm:pr-0 z-[100] inset-x-0 text-sm text-ui-fg-on-color
+												 transition  data-[closed]:translate-y-1 data-[closed]:opacity-0 left-[calc(100vw_*_0.1_-_200px)] top-[42.5px]"
+					>
+						<div
+							data-testid="nav-menu-popup"
+							className="flex flex-col h-full bg-white justify-between border border-t-0 border-ui-border-base min-w-[324px]"
+						>
+							<ul className="grid gap-0.5 w-full relative py-2">
+								{categories.map((category) => {
+									return (
+										<li key={category.id} className="grid gap-2">
+											<div
+												className={
+													'px-6 py-4 hover:bg-red-base group/link-wrapper flex items-center justify-between [&:has([data-open])]:bg-red-base [&:has([data-open])>a]:text-white'
+												}
+											>
+												<Link
+													href={`./categories/${category.handle}`}
+													className="text-black-26 whitespace-nowrap font-bold group-hover/link-wrapper:text-white relative before:absolute before:inset-0 before:py-6 before:px-[60%] before:top-1/2 before:-translate-y-1/2 before:left-1/2 before:-translate-x-1/2 hover:underline"
 												>
-													<Link
-														href={`./categories/${category.handle}`}
-														className="text-black-26 whitespace-nowrap font-bold group-hover/link-wrapper:text-white relative before:absolute before:inset-0 before:py-6 before:px-[60%] before:top-1/2 before:-translate-y-1/2 before:left-1/2 before:-translate-x-1/2 hover:underline"
-													>
-														{category.name}
-													</Link>
-													<SubCategories
-														categoryChildren={
-															category.category_children
-														}
-														parentCategory={category}
-													/>
-												</div>
-											</li>
-										);
-									})}
-								</ul>
-							</div>
-						</PopoverPanel>
-					</>
-				</Popover>
-			</div>
+													{category.name}
+												</Link>
+												<SubCategories
+													categoryChildren={
+														category.category_children
+													}
+													parentCategory={category}
+												/>
+											</div>
+										</li>
+									);
+								})}
+							</ul>
+						</div>
+					</PopoverPanel>
+				</>
+			</Popover>
 		</div>
 	);
 };
