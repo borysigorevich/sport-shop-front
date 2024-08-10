@@ -1,11 +1,11 @@
 import { AttributesWrapper } from '@modules/categories/components/attributes/attributes-wrapper';
 import { Categories } from '@modules/categories/components/categories';
-import LocalizedClientLink from '@modules/common/components/localized-client-link';
 import { SkeletonProductFilters } from '@modules/skeletons/templates/skeleton-product-filters';
 import SkeletonProductGrid from '@modules/skeletons/templates/skeleton-product-grid';
 import RefinementList from '@modules/store/components/refinement-list';
 import { SortOptions } from '@modules/store/components/refinement-list/sort-products';
 import PaginatedProducts from '@modules/store/templates/paginated-products';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 import { ProductCategoryWithChildren } from '../../../types/global';
@@ -54,13 +54,13 @@ export default async function CategoryTemplate({
 					{parents &&
 						parents.map((parent) => (
 							<span key={parent.id} className="text-ui-fg-subtle">
-								<LocalizedClientLink
+								<Link
 									className="mr-4 hover:text-black"
 									href={`/categories/${parent.handle}`}
 									data-testid="sort-by-link"
 								>
 									{parent.name}
-								</LocalizedClientLink>
+								</Link>
 								/
 							</span>
 						))}

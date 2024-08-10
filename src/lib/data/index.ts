@@ -641,7 +641,7 @@ export const getProductsByCollectionHandle = cache(
 );
 
 // Category actions
-export const listCategories = cache(async function () {
+export const listCategories = cache(async function (params?: StoreGetProductCategoriesParams) {
 	const headers = {
 		next: {
 			tags: ['collections'],
@@ -649,7 +649,7 @@ export const listCategories = cache(async function () {
 	} as Record<string, any>;
 
 	return medusaClient.productCategories
-		.list({ expand: 'category_children' }, headers)
+		.list({ expand: 'category_children', ...params }, headers)
 		.then(({ product_categories }) => product_categories)
 		.catch((err) => {
 			throw err;

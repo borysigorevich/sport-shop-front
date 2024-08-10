@@ -1,5 +1,6 @@
 import InteractiveLink from '@modules/common/components/interactive-link';
 import Accordion from '@modules/products/components/product-tabs/accordion';
+import Link from "next/link"
 import React from 'react';
 import { ProductCategoryWithChildren } from '../../../../types/global';
 
@@ -11,7 +12,9 @@ export const Categories = ({ category }: CategoriesProps) => {
 	if (!category.category_children?.length) return null;
 
 	return (
-		<Accordion type={'multiple'}>
+		<Accordion type={'multiple'}
+							 defaultValue={[category.id]}
+		>
 			<Accordion.Item
 				title={category.name}
 				headingSize="medium"
@@ -21,13 +24,14 @@ export const Categories = ({ category }: CategoriesProps) => {
 			>
 				<div className={'pt-2 grid gap-4 pl-1'}>
 					{category.category_children.map((child) => (
-						<InteractiveLink
+						<Link
+							className={'text-black txt-compact-medium hover:underline'}
 							key={child.id}
-							href={`/categories/${child.handle}`}
+							href={`./${child.handle}`}
 							data-testid="sort-by-link"
 						>
 							{child.name}
-						</InteractiveLink>
+						</Link>
 					))}
 				</div>
 			</Accordion.Item>
