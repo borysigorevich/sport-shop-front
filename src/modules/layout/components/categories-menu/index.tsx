@@ -12,11 +12,11 @@ type CategoriesMenuProps = {
 };
 
 const MobileSubCategories = ({
-	category,
+	parentCategory,
 	back,
 	close,
 }: {
-	category: ProductCategoryWithChildren;
+	parentCategory: ProductCategoryWithChildren;
 	back: VoidFunction;
 	close: VoidFunction;
 }) => {
@@ -27,11 +27,13 @@ const MobileSubCategories = ({
 				onClick={back}
 			>
 				<span className={'text-xl text-black'}>{'<'}</span>
-				<h3 className={'text-xl text-red-base font-bold'}>{category.name}</h3>
+				<h3 className={'text-xl text-red-base font-bold'}>
+					{parentCategory.name}
+				</h3>
 			</div>
 
 			<Accordion type="multiple">
-				{category.category_children.map((categoryChild, index) => (
+				{parentCategory.category_children.map((categoryChild, index) => (
 					<Accordion.Item
 						key={categoryChild.id}
 						title={categoryChild.name}
@@ -42,7 +44,7 @@ const MobileSubCategories = ({
 						headerClassName={'px-6'}
 						headerTitleElement={
 							<LocalizedClientLink
-								href={`/categories/${categoryChild.handle}`}
+								href={`/categories/${parentCategory.handle}/${categoryChild.handle}`}
 								onClick={() => {
 									close();
 								}}
@@ -58,7 +60,7 @@ const MobileSubCategories = ({
 							{categoryChild.category_children.map((child, index) => (
 								<div key={child.id}>
 									<LocalizedClientLink
-										href={`/categories/${categoryChild.handle}/${child.handle}`}
+										href={`/categories/${parentCategory.handle}/${categoryChild.handle}/${child.handle}`}
 										className={'text-black-26'}
 										onClick={() => {
 											close();
@@ -182,7 +184,7 @@ const MobileHighLevelCategoriesList = ({
 		<ul className={'grid gap-0.5 lg:hidden bg-white'}>
 			{selectedCategory ? (
 				<MobileSubCategories
-					category={selectedCategory}
+					parentCategory={selectedCategory}
 					back={handleBack}
 					close={close}
 				/>
