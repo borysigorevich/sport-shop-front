@@ -2,6 +2,7 @@
 import { Popover, PopoverBackdrop, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { removeScrollbar } from '@lib/util/remove-scrollbar';
 import Accordion from '@modules/products/components/product-tabs/accordion';
+import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { ProductCategoryWithChildren } from '../../../../types/global';
@@ -88,10 +89,10 @@ const DesktopSubCategories = ({
 		<Popover>
 			<PopoverButton
 				className={
-					'text-black data-[open]:text-white group-hover/link-wrapper:text-white'
+					'text-black data-[open]:text-white relative group-hover/link-wrapper:text-white flex items-center before:absolute before:inset-0 before:py-6 before:pr-[105%] before:pl-[500%] before:top-1/2 before:-translate-y-1/2 before:-left-[85px] -translate-x-1/2'
 				}
 			>
-				{'>'}
+				<ChevronRight />
 			</PopoverButton>
 
 			<PopoverPanel
