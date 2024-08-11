@@ -23,11 +23,11 @@ export const CategoriesBreadcrumbs = ({ categories }: CategoriesBreadcrumbsProps
 
 	return (
 		<div className={'mb-3'}>
-			<ul className={'flex items-center gap-2 pl-1'}>
+			<ul className={'flex items-center flex-wrap gap-2 pl-1'}>
 				<li className={'text-black text-[13px] underline hover:text-red-base'}>
 					<Link href={`/${countryCode}`}>Ya Ye Whey</Link>
 				</li>
-				{pathNames.length > 0 && ' > '}
+				<span className={" lg:block"}>{pathNames.length > 0 && " / "}</span>
 				{pathNames.map((link, index) => {
 					let href = `/${pathNames.slice(0, index + 1).join('/')}`;
 					const linkName = handleNamesMap[link] || link;
@@ -40,7 +40,7 @@ export const CategoriesBreadcrumbs = ({ categories }: CategoriesBreadcrumbsProps
 						<React.Fragment key={index}>
 							<li
 								className={cn(
-									'text-black text-[13px]',
+									'text-black text-[13px] truncate',
 									link !== pathNames.at(-1)
 										? 'underline hover:text-red-base'
 										: 'pointer-events-none'
@@ -48,7 +48,7 @@ export const CategoriesBreadcrumbs = ({ categories }: CategoriesBreadcrumbsProps
 							>
 								<Link href={href}>{itemLink}</Link>
 							</li>
-							{pathNames.length !== index + 1 && ' > '}
+							<span className={" lg:block"}>{pathNames.length !== index + 1 && " / "}</span>
 						</React.Fragment>
 					);
 				})}

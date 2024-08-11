@@ -39,7 +39,7 @@ export default async function CategoryTemplate({
 		<div className="py-6 content-container  group" data-testid="category-container">
 			<CategoriesBreadcrumbsWrapper />
 
-			<div className={'grid small:grid-cols-[2fr_8fr] small:items-start gap-12'}>
+			<div className={'grid small:grid-cols-[25fr_75fr] small:items-start gap-10'}>
 				<div className={'grid'}>
 					<Suspense fallback={<SkeletonProductFilters />}>
 						<Categories category={category} />
@@ -51,15 +51,15 @@ export default async function CategoryTemplate({
 				</div>
 
 				<div className="w-full ">
-					<div className="flex flex-row mb-4 text-2xl-semi gap-4">
-						<div className={'flex items-center justify-between w-full'}>
+					<div className="flex flex-row mb-4 text-xl-semi font-semibold lg:text-2xl-semi gap-4">
+						<div className={'flex flex-col justify-between w-full'}>
 							<h1 data-testid="category-page-title" className={'uppercase'}>
 								{category.name}
 							</h1>
 							<RefinementList
 								sortBy={sortBy || 'created_at'}
 								data-testid="sort-by-container"
-								className={'!m-0'}
+								className={'!m-0 self-end'}
 							/>
 						</div>
 					</div>
