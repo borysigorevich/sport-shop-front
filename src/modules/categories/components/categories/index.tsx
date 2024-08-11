@@ -18,7 +18,7 @@ export const Categories = ({ category }: CategoriesProps) => {
 				value={category.id}
 				className={'first:border-t-0 pt-2'}
 				headerTitleClassName={
-					'text-lg font-semibold text-black text-start tracking-wider'
+					'text-lg font-semibold text-black text-start tracking-wider uppercase'
 				}
 			>
 				<div className={'pt-2 grid gap-4 pl-1'}>

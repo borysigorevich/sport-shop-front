@@ -72,7 +72,7 @@ export const Attributes = ({ attributes, attributesSearchParams }: AttributesPro
 						value={attribute.id}
 						className={'first:border-t-0 pt-2'}
 						headerTitleClassName={
-							'text-lg font-semibold text-black tracking-wider'
+							'text-lg font-semibold text-black tracking-wider uppercase'
 						}
 					>
 						<div className={'pt-2 grid gap-3'}>
