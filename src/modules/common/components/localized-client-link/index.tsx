@@ -16,7 +16,7 @@ const LocalizedClientLink = ({
 	children?: React.ReactNode;
 	href: string;
 	className?: string;
-	onClick?: () => void;
+	onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
 	passHref?: true;
 	[x: string]: any;
 }) => {

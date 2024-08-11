@@ -1,9 +1,9 @@
 'use client';
 import { Popover, PopoverBackdrop, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { removeScrollbar } from '@lib/util/remove-scrollbar';
+import LocalizedClientLink from '@modules/common/components/localized-client-link';
 import Accordion from '@modules/products/components/product-tabs/accordion';
 import { ChevronRight } from 'lucide-react';
-import Link from 'next/link';
 import React, { useState } from 'react';
 import { ProductCategoryWithChildren } from '../../../../types/global';
 
@@ -41,8 +41,8 @@ const MobileSubCategories = ({
 						className={'first:border-t-0 pt-2'}
 						headerClassName={'px-6'}
 						headerTitleElement={
-							<Link
-								href={`./categories/${categoryChild.handle}`}
+							<LocalizedClientLink
+								href={`/categories/${categoryChild.handle}`}
 								onClick={() => {
 									close();
 								}}
@@ -51,21 +51,21 @@ const MobileSubCategories = ({
 								}
 							>
 								{categoryChild.name}
-							</Link>
+							</LocalizedClientLink>
 						}
 					>
 						<div className={'pt-2 grid gap-3 px-5'}>
 							{categoryChild.category_children.map((child, index) => (
 								<div key={child.id}>
-									<Link
-										href={`./categories/${categoryChild.handle}/${child.handle}`}
+									<LocalizedClientLink
+										href={`/categories/${categoryChild.handle}/${child.handle}`}
 										className={'text-black-26'}
 										onClick={() => {
 											close();
 										}}
 									>
 										{child.name}
-									</Link>
+									</LocalizedClientLink>
 								</div>
 							))}
 						</div>
@@ -122,8 +122,8 @@ const DesktopSubCategories = ({
 									key={categoryChild.id}
 									className={'min-w-fit whitespace-nowrap'}
 								>
-									<Link
-										href={`./categories/${parentCategory.handle}/${categoryChild.handle}`}
+									<LocalizedClientLink
+										href={`/categories/${parentCategory.handle}/${categoryChild.handle}`}
 										onClick={() => {
 											close();
 										}}
@@ -132,7 +132,7 @@ const DesktopSubCategories = ({
 										}
 									>
 										{categoryChild.name}
-									</Link>
+									</LocalizedClientLink>
 
 									<ul>
 										{categoryChild.category_children.map((child) => (
@@ -140,8 +140,8 @@ const DesktopSubCategories = ({
 												key={child.id}
 												className={'px-6 py-3 last:pb-0'}
 											>
-												<Link
-													href={`./categories/${parentCategory.handle}/${categoryChild.handle}/${child.handle}`}
+												<LocalizedClientLink
+													href={`/categories/${parentCategory.handle}/${categoryChild.handle}/${child.handle}`}
 													onClick={() => {
 														close();
 													}}
@@ -150,7 +150,7 @@ const DesktopSubCategories = ({
 													}
 												>
 													{child.name}
-												</Link>
+												</LocalizedClientLink>
 											</li>
 										))}
 									</ul>
@@ -198,16 +198,16 @@ const MobileHighLevelCategoriesList = ({
 									setSelectedCategory(category);
 								}}
 							>
-								<Link
+								<LocalizedClientLink
 									onClick={(event) => {
 										event.stopPropagation();
 										close();
 									}}
-									href={`./categories/${category.handle}`}
+									href={`/categories/${category.handle}`}
 									className="text-black-26 whitespace-nowrap font-bold relative before:absolute before:inset-0 before:py-6 before:px-[60%] before:top-1/2 before:-translate-y-1/2 before:left-1/2 before:-translate-x-1/2 hover:underline"
 								>
 									{category.name}
-								</Link>
+								</LocalizedClientLink>
 
 								<span className={'text-black'}>{'>'}</span>
 							</div>
@@ -236,15 +236,15 @@ const DesktopHighLevelCategoriesList = ({
 								'px-6 py-4 hover:bg-red-base group/link-wrapper flex items-center justify-between [&:has([data-open])]:bg-red-base [&:has([data-open])>a]:text-white'
 							}
 						>
-							<Link
-								href={`./categories/${category.handle}`}
+							<LocalizedClientLink
+								href={`/categories/${category.handle}`}
 								onClick={() => {
 									close();
 								}}
 								className="text-black-26 whitespace-nowrap font-bold group-hover/link-wrapper:text-white relative before:absolute before:inset-0 before:py-6 before:px-[60%] before:top-1/2 before:-translate-y-1/2 before:left-1/2 before:-translate-x-1/2 hover:underline"
 							>
 								{category.name}
-							</Link>
+							</LocalizedClientLink>
 							<DesktopSubCategories
 								categoryChildren={category.category_children}
 								parentCategory={category}
