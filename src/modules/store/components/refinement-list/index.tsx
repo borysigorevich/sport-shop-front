@@ -2,7 +2,7 @@
 
 import { cn } from '@lib/util/cn';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useOptimistic, useTransition } from 'react';
+import { useCallback, useOptimistic, useState, useTransition } from 'react';
 
 import SortProducts, { SortOptions } from './sort-products';
 
@@ -25,6 +25,9 @@ const RefinementList = ({
 	const [optimisticSortBy, setOptimisticSortBy] = useOptimistic(sortBy);
 	const [isPending, startTransition] = useTransition();
 
+	const [filterToggleButtonText, setFilterToggleButtonText] =
+		useState<string>('Hide filter');
+
 	const createQueryString = useCallback(
 		(name: string, value: string) => {
 			const params = new URLSearchParams(searchParams);
@@ -43,14 +46,30 @@ const RefinementList = ({
 		});
 	};
 
+	const handleFilterToggle = () => {
+		const filtersButton = document.querySelector('#show-filters-button') as HTMLButtonElement;
+		const showFilter = filtersButton.dataset.showState === 'show'
+		setFilterToggleButtonText(showFilter ? 'Show Filter' : 'Hide Filter');
+		filtersButton.click();
+	};
+
 	return (
 		<div
 			className={cn(
-				'flex small:flex-col gap-12 py-4 mb-8 small:px-0 pl-6  small:ml-[1.675rem]',
+				'grid grid-cols-[auto_auto_auto] py-4 mb-8 small:px-0 pl-6 small:ml-[1.675rem]',
 				className
 			)}
 			data-sort-by-pending={isPending ? '' : undefined}
 		>
+			<button
+				className={'text-sm'}
+				onClick={handleFilterToggle}
+			>
+				{filterToggleButtonText}
+			</button>
+			<div
+				className={'w-px h-[60%] ml-4 mr-2.5 bg-gray-300 relative top-1/2 -translate-y-1/2'}
+			/>
 			<SortProducts
 				sortBy={optimisticSortBy}
 				setQueryParams={setQueryParams}

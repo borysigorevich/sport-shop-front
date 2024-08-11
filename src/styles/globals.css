@@ -10,7 +10,7 @@
   }
 
   * {
-    @apply font-sans;
+    @apply font-sans focus:outline-none focus-visible:ring-1 focus:ring-black/25;
   }
 
   html, body {

@@ -1,6 +1,7 @@
 import { AttributesWrapper } from '@modules/categories/components/attributes/attributes-wrapper';
 import { Categories } from '@modules/categories/components/categories';
 import { CategoriesBreadcrumbsWrapper } from '@modules/categories/components/categories-breadcrumbs/categories-breadcrumbs-wrapper';
+import { ContentGrid } from '@modules/categories/components/content-grid';
 import { SkeletonProductFilters } from '@modules/skeletons/templates/skeleton-product-filters';
 import SkeletonProductGrid from '@modules/skeletons/templates/skeleton-product-grid';
 import RefinementList from '@modules/store/components/refinement-list';
@@ -36,11 +37,11 @@ export default async function CategoryTemplate({
 	if (!category || !countryCode) notFound();
 
 	return (
-		<div className="py-6 content-container  group" data-testid="category-container">
+		<div className="py-6 content-container group" data-testid="category-container">
 			<CategoriesBreadcrumbsWrapper />
 
-			<div className={'grid small:grid-cols-[25fr_75fr] small:items-start gap-10'}>
-				<div className={'grid'}>
+			<ContentGrid>
+				<div className={'overflow-hidden'}>
 					<Suspense fallback={<SkeletonProductFilters />}>
 						<Categories category={category} />
 
@@ -52,7 +53,7 @@ export default async function CategoryTemplate({
 
 				<div className="w-full ">
 					<div className="flex flex-row mb-4 text-xl-semi font-semibold lg:text-2xl-semi gap-4">
-						<div className={'flex flex-col justify-between w-full'}>
+						<div className={'flex flex-col lg:flex-row justify-between w-full'}>
 							<h1 data-testid="category-page-title" className={'uppercase'}>
 								{category.name}
 							</h1>
@@ -78,7 +79,7 @@ export default async function CategoryTemplate({
 						/>
 					</Suspense>
 				</div>
-			</div>
+			</ContentGrid>
 		</div>
 	);
 }
