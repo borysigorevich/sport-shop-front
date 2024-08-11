@@ -21,10 +21,10 @@ export const ContentGrid = ({ children }: PropsWithChildren) => {
 			</button>
 			<div
 				className={cn(
-					'grid gap-10',
+					'lg:grid ',
 					showFilters
-						? 'lg:grid-cols-[1fr_3fr] gap-10'
-						: 'lg:grid-cols-[0_3fr] lg:gap-0'
+						? 'grid-cols-[1fr_3fr] gap-10'
+						: 'grid-cols-[0_3fr] gap-0'
 				)}
 			>
 				{children}

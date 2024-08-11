@@ -6,6 +6,42 @@ import { useCallback, useOptimistic, useState, useTransition } from 'react';
 
 import SortProducts, { SortOptions } from './sort-products';
 
+const FilterToggle = () => {
+	const [filterToggleButtonText, setFilterToggleButtonText] =
+		useState<string>('Hide filter');
+
+	const handleFilterToggleDesktop = () => {
+		const filtersButton = document.querySelector(
+			'#show-filters-button'
+		) as HTMLButtonElement;
+		const showFilter = filtersButton.dataset.showState === 'show';
+		setFilterToggleButtonText(showFilter ? 'Show Filter' : 'Hide Filter');
+		filtersButton.click();
+	};
+
+	const handleFilterToggleMobile = () => {
+		const filtersButton = document.querySelector(
+			'#filter-popover-trigger-button'
+		) as HTMLButtonElement;
+		filtersButton.click();
+	};
+
+	return (
+		<>
+			<button className={'text-sm lg:hidden'} onClick={handleFilterToggleMobile}>
+				Show Filters
+			</button>
+
+			<button
+				className={'text-sm hidden lg:block'}
+				onClick={handleFilterToggleDesktop}
+			>
+				{filterToggleButtonText}
+			</button>
+		</>
+	);
+};
+
 type RefinementListProps = {
 	sortBy: SortOptions;
 	search?: boolean;
@@ -25,9 +61,6 @@ const RefinementList = ({
 	const [optimisticSortBy, setOptimisticSortBy] = useOptimistic(sortBy);
 	const [isPending, startTransition] = useTransition();
 
-	const [filterToggleButtonText, setFilterToggleButtonText] =
-		useState<string>('Hide filter');
-
 	const createQueryString = useCallback(
 		(name: string, value: string) => {
 			const params = new URLSearchParams(searchParams);
@@ -46,13 +79,6 @@ const RefinementList = ({
 		});
 	};
 
-	const handleFilterToggle = () => {
-		const filtersButton = document.querySelector('#show-filters-button') as HTMLButtonElement;
-		const showFilter = filtersButton.dataset.showState === 'show'
-		setFilterToggleButtonText(showFilter ? 'Show Filter' : 'Hide Filter');
-		filtersButton.click();
-	};
-
 	return (
 		<div
 			className={cn(
@@ -61,14 +87,12 @@ const RefinementList = ({
 			)}
 			data-sort-by-pending={isPending ? '' : undefined}
 		>
-			<button
-				className={'text-sm'}
-				onClick={handleFilterToggle}
-			>
-				{filterToggleButtonText}
-			</button>
+			<FilterToggle/>
+
 			<div
-				className={'w-px h-[60%] ml-4 mr-2.5 bg-gray-300 relative top-1/2 -translate-y-1/2'}
+				className={
+					'w-px h-[60%] ml-4 mr-2.5 bg-gray-300 relative top-1/2 -translate-y-1/2'
+				}
 			/>
 			<SortProducts
 				sortBy={optimisticSortBy}

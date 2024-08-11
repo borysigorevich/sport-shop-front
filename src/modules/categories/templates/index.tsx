@@ -2,6 +2,7 @@ import { AttributesWrapper } from '@modules/categories/components/attributes/att
 import { Categories } from '@modules/categories/components/categories';
 import { CategoriesBreadcrumbsWrapper } from '@modules/categories/components/categories-breadcrumbs/categories-breadcrumbs-wrapper';
 import { ContentGrid } from '@modules/categories/components/content-grid';
+import { Filters } from "@modules/categories/components/filters"
 import { SkeletonProductFilters } from '@modules/skeletons/templates/skeleton-product-filters';
 import SkeletonProductGrid from '@modules/skeletons/templates/skeleton-product-grid';
 import RefinementList from '@modules/store/components/refinement-list';
@@ -41,15 +42,15 @@ export default async function CategoryTemplate({
 			<CategoriesBreadcrumbsWrapper />
 
 			<ContentGrid>
-				<div className={'overflow-hidden'}>
-					<Suspense fallback={<SkeletonProductFilters />}>
-						<Categories category={category} />
+				<Filters>
+						<Suspense fallback={<SkeletonProductFilters />}>
+							<Categories category={category} />
 
-						<AttributesWrapper
-							attributesSearchParams={attributesSearchParams}
-						/>
-					</Suspense>
-				</div>
+							<AttributesWrapper
+								attributesSearchParams={attributesSearchParams}
+							/>
+						</Suspense>
+				</Filters>
 
 				<div className="w-full ">
 					<div className="flex flex-row mb-4 text-xl-semi font-semibold lg:text-2xl-semi gap-4">

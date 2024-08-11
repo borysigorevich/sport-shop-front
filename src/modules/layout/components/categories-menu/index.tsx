@@ -1,5 +1,6 @@
 'use client';
 import { Popover, PopoverBackdrop, PopoverButton, PopoverPanel } from '@headlessui/react';
+import { removeScrollbar } from "@lib/util/remove-scrollbar"
 import Accordion from '@modules/products/components/product-tabs/accordion';
 import Link from 'next/link';
 import React, { useState } from 'react';
@@ -35,13 +36,10 @@ const MobileSubCategories = ({
 						headerClassName={'px-6'}
 						headerTitleElement={
 							<Link href={`./categories/${categoryChild.handle}`}
-								className={'text-black text-lg font-semibold tracking-wider'}
+								className={'text-black text-base font-semibold tracking-wider'}
 							>
 								{categoryChild.name}
 							</Link>
-						}
-						headerTitleClassName={
-							'text-lg font-semibold text-black tracking-wider'
 						}
 					>
 						<div className={'pt-2 grid gap-3 px-5'}>
@@ -247,13 +245,7 @@ const CategoriesMenu = ({ categories }: CategoriesMenuProps) => {
 						transition
 						className="flex flex-col absolute w-full min-w-[350px] sm:pr-0 z-[100] inset-x-0 text-sm text-ui-fg-on-color h-[calc(100vh_-_63px)] lg:h-fit
 												 transition  data-[closed]:translate-y-1 data-[closed]:opacity-0 left-0 top-[64px] lg:left-[calc(100vw_*_0.1_-_265px)] lg:top-[42.5px] overflow-auto lg:overflow-visible"
-						ref={el => {
-							if(el){
-								document.body.style.overflow = 'hidden';
-							} else {
-								document.body.style.overflow = 'auto';
-							}
-						}}
+						ref={removeScrollbar}
 					>
 						<div
 							data-testid="nav-menu-popup"

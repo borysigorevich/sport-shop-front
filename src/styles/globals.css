@@ -15,7 +15,6 @@
 
   html, body {
     @apply h-full antialiased;
-    scrollbar-gutter: stable;
     scrollbar-color: #5b5b5b #f1f1f1;
     scrollbar-width: thin
   }
