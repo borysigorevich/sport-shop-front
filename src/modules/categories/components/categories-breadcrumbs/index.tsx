@@ -1,40 +1,47 @@
-'use client';
+import { getCategoryByHandle } from '@lib/data';
 import { cn } from '@lib/util/cn';
-import Link from 'next/link';
-import { useParams, usePathname } from 'next/navigation';
+import LocalizedClientLink from '@modules/common/components/localized-client-link';
 import React from 'react';
 import { ProductCategoryWithChildren } from '../../../../types/global';
 
-const skipPaths = ['ua', 'categories'];
-
 type CategoriesBreadcrumbsProps = {
-	categories: ProductCategoryWithChildren[];
+	category: ProductCategoryWithChildren;
+	categoriesParams: string[];
 };
 
-export const CategoriesBreadcrumbs = ({ categories }: CategoriesBreadcrumbsProps) => {
-	const paths = usePathname();
-	const pathNames = paths.split('/').filter((path) => path);
-	const { countryCode } = useParams();
+export const CategoriesBreadcrumbs = async ({
+	category,
+	categoriesParams,
+}: CategoriesBreadcrumbsProps) => {
+	const pathNames = categoriesParams;
 
-	const handleNamesMap = categories.reduce((acc, category) => {
-		acc[category.handle] = category.name;
-		return acc;
-	}, {} as Record<string, string>);
+	const categoriesNames = new Map([[category.handle, category.name]]);
+
+	if (category.parent_category) {
+		categoriesNames.set(
+			category.parent_category.handle,
+			category.parent_category.name
+		);
+
+		if (category.parent_category?.parent_category_id) {
+			const parentCategory = await getCategoryByHandle([
+				category.parent_category.handle,
+			]).then((result) => result.product_categories[0]);
+			categoriesNames.set(parentCategory.handle, parentCategory.name);
+		}
+	}
 
 	return (
 		<div className={'mb-3'}>
 			<ul className={'flex items-center flex-wrap gap-2 pl-1'}>
 				<li className={'text-black text-[13px] underline hover:text-red-base'}>
-					<Link href={`/${countryCode}`}>Ya Ye Whey</Link>
+					<LocalizedClientLink href={`/`}>Ya Ye Whey</LocalizedClientLink>
 				</li>
-				<span className={" lg:block"}>{pathNames.length > 0 && " / "}</span>
+				<span className={'lg:block'}>{pathNames.length > 0 && ' / '}</span>
 				{pathNames.map((link, index) => {
-					let href = `/${pathNames.slice(0, index + 1).join('/')}`;
-					const linkName = handleNamesMap[link] || link;
-					let itemLink =
-						linkName[0].toUpperCase() + linkName.slice(1, linkName.length);
+					let href = `/categories/${pathNames.slice(0, index + 1).join('/')}`;
 
-					if (skipPaths.includes(link)) return null;
+					const linkName = categoriesNames.get(link) || link;
 
 					return (
 						<React.Fragment key={index}>
@@ -46,9 +53,13 @@ export const CategoriesBreadcrumbs = ({ categories }: CategoriesBreadcrumbsProps
 										: 'pointer-events-none'
 								)}
 							>
-								<Link href={href}>{itemLink}</Link>
+								<LocalizedClientLink href={href}>
+									{linkName}
+								</LocalizedClientLink>
 							</li>
-							<span className={" lg:block"}>{pathNames.length !== index + 1 && " / "}</span>
+							<span className={' lg:block'}>
+								{pathNames.length !== index + 1 && ' / '}
+							</span>
 						</React.Fragment>
 					);
 				})}
