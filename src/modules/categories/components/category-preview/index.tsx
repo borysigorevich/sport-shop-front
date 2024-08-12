@@ -11,15 +11,15 @@ type CategoryPreviewProps = {
 
 export const CategoryPreview = ({ thumbnail, handle, title }: CategoryPreviewProps) => {
 	return (
-		<LocalizedClientLink href={`/categories/${handle}`} className="group">
-			<div data-testid="product-wrapper">
+		<div data-testid="product-wrapper">
+			<LocalizedClientLink href={`/categories/${handle}`} className="group">
 				<Thumbnail thumbnail={thumbnail} size="full" />
-				<div className="flex txt-compact-medium mt-4 justify-between">
-					<Text className="text-ui-fg-subtle" data-testid="product-title">
-						{title}
-					</Text>
-				</div>
+			</LocalizedClientLink>
+			<div className="flex txt-compact-medium mt-4 justify-between">
+				<Text className="text-black font-semibold" data-testid="product-title">
+					{title}
+				</Text>
 			</div>
-		</LocalizedClientLink>
+		</div>
 	);
 };

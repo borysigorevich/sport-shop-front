@@ -213,7 +213,7 @@ const CartDropdown = ({
 												<span className="sr-only">
 													Go to all products page
 												</span>
-												<Button onClick={close}>
+												<Button onClick={close} className={'rounded-none'}>
 													Explore products
 												</Button>
 											</>
