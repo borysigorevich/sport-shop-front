@@ -3,7 +3,7 @@ import { Popover, PopoverBackdrop, PopoverButton, PopoverPanel } from '@headless
 import { removeScrollbar } from '@lib/util/remove-scrollbar';
 import LocalizedClientLink from '@modules/common/components/localized-client-link';
 import Accordion from '@modules/products/components/product-tabs/accordion';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, ChevronLeft } from 'lucide-react';
 import React, { useState } from 'react';
 import { ProductCategoryWithChildren } from '../../../../types/global';
 
@@ -26,7 +26,9 @@ const MobileSubCategories = ({
 				className={'flex items-center p-6 gap-4 cursor-pointer mb-2 pb-4'}
 				onClick={back}
 			>
-				<span className={'text-xl text-black'}>{'<'}</span>
+				<span className={'text-xl text-black'}>
+					<ChevronLeft/>
+				</span>
 				<h3 className={'text-xl text-red-base font-bold'}>
 					{parentCategory.name}
 				</h3>
@@ -211,7 +213,9 @@ const MobileHighLevelCategoriesList = ({
 									{category.name}
 								</LocalizedClientLink>
 
-								<span className={'text-black'}>{'>'}</span>
+								<span className={'text-black'}>
+									<ChevronRight />
+								</span>
 							</div>
 						</li>
 					);
