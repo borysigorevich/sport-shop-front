@@ -57,7 +57,7 @@ export default async function CategoryTemplate({
 					</Suspense>
 				</Filters>
 
-				<div className="w-full ">
+				<div className="w-full bg-white relative">
 					<div className="flex flex-row mb-4 text-xl-semi font-semibold lg:text-2xl-semi gap-4">
 						<div
 							className={'flex flex-col lg:flex-row justify-between w-full'}
