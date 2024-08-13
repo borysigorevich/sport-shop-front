@@ -10,8 +10,6 @@ type CategoriesProps = {
 export const Categories = ({ category }: CategoriesProps) => {
 	if (!category.category_children?.length) return null;
 
-	console.log({ categoriesChildren: category.category_children }, '***');
-
 	return (
 		<Accordion type={'multiple'} defaultValue={[category.id]}>
 			<Accordion.Item

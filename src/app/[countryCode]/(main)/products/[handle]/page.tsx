@@ -1,6 +1,3 @@
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-
 import {
 	getProductByHandle,
 	getProductsList,
@@ -10,6 +7,8 @@ import {
 } from '@lib/data';
 import { Region } from '@medusajs/medusa';
 import ProductTemplate from '@modules/products/templates';
+import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 type Props = {
 	params: { countryCode: string; handle: string };
@@ -63,7 +62,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const getPricedProductByHandle = async (handle: string, region: Region) => {
-	const { product } = await getProductByHandle(handle).then((product) => product);
+	const { product } = await getProductByHandle(handle, {
+		expand: 'categories'
+	}).then((product) => product);
 
 	if (!product || !product.id) {
 		return null;
@@ -74,7 +75,7 @@ const getPricedProductByHandle = async (handle: string, region: Region) => {
 		regionId: region.id,
 	});
 
-	return pricedProduct;
+	return { pricedProduct, category: product.categories?.[0] };
 };
 
 export default async function ProductPage({ params }: Props) {
@@ -84,17 +85,22 @@ export default async function ProductPage({ params }: Props) {
 		notFound();
 	}
 
-	const pricedProduct = await getPricedProductByHandle(params.handle, region);
+	const result = await getPricedProductByHandle(params.handle, region);
 
-	if (!pricedProduct) {
+	if (!result) {
+		notFound();
+	}
+
+	if (!result.pricedProduct) {
 		notFound();
 	}
 
 	return (
 		<ProductTemplate
-			product={pricedProduct}
+			product={result.pricedProduct}
 			region={region}
 			countryCode={params.countryCode}
+			category={result.category?.handle}
 		/>
 	);
 }

@@ -11,8 +11,6 @@ type AddToCartProps = {
 export const AddToCart = ({ productId, countryCode }: AddToCartProps) => {
 	const [isAdding, setIsAdding] = useState(false);
 
-	console.log(countryCode, '***')
-
 	const handleAddToCart = async () => {
 		if (!productId) return null;
 
