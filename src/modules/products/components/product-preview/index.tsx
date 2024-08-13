@@ -1,10 +1,8 @@
 import { retrievePricedProductById } from '@lib/data';
 import { getProductPrice } from '@lib/util/get-product-price';
 import { Region } from '@medusajs/medusa';
-import { Button } from '@medusajs/ui';
-import { addToCart } from '@modules/cart/actions';
 import LocalizedClientLink from '@modules/common/components/localized-client-link';
-
+import { AddToCart } from '@modules/products/components/product-preview/add-to-cart';
 import { ProductPreviewType } from 'types/global';
 import Thumbnail from '../thumbnail';
 import PreviewPrice from './price';
@@ -32,21 +30,6 @@ export default async function ProductPreview({
 		region,
 	});
 
-	const handleAddToCart = async () => {
-		'use server';
-		if (!productPreview?.id) return null;
-
-		// setIsAdding(true);
-
-		await addToCart({
-			variantId: productPreview.id,
-			quantity: 1,
-			countryCode: region.name,
-		});
-
-		// setIsAdding(false);
-	};
-
 	return (
 		<div data-testid="product-wrapper">
 			<LocalizedClientLink
@@ -63,17 +46,7 @@ export default async function ProductPreview({
 				<div className="flex items-center gap-x-2 text-black">
 					{cheapestPrice && <PreviewPrice price={cheapestPrice} />}
 				</div>
-				{/*TODO decompose in client component*/}
-				<form action={handleAddToCart}>
-					<Button
-						type={'submit'}
-						variant="primary"
-						className="w-full h-8 rounded-none"
-						data-testid="add-product-button"
-					>
-						Add to cart
-					</Button>
-				</form>
+				<AddToCart productId={productPreview.id} countryCode={region.name} />
 			</div>
 		</div>
 	);

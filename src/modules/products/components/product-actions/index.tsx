@@ -1,16 +1,15 @@
 'use client';
 
+import { useIntersection } from '@lib/hooks/use-in-view';
 import { Region } from '@medusajs/medusa';
 import { PricedProduct } from '@medusajs/medusa/dist/types/pricing';
 import { Button } from '@medusajs/ui';
-import { isEqual } from 'lodash';
-import { useParams } from 'next/navigation';
-import { useEffect, useMemo, useRef, useState } from 'react';
-
-import { useIntersection } from '@lib/hooks/use-in-view';
 import { addToCart } from '@modules/cart/actions';
 import Divider from '@modules/common/components/divider';
 import OptionSelect from '@modules/products/components/option-select';
+import { isEqual } from 'lodash';
+import { useParams } from 'next/navigation';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import MobileActions from '../mobile-actions';
 import ProductPrice from '../product-price';
@@ -166,7 +165,7 @@ export default function ProductActions({
 					onClick={handleAddToCart}
 					disabled={!inStock || !variant || !!disabled || isAdding}
 					variant="primary"
-					className="w-full h-10"
+					className="w-full h-10 rounded-none uppercase [&:disabled_div]:rounded-none"
 					isLoading={isAdding}
 					data-testid="add-product-button"
 				>
