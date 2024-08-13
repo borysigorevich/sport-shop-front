@@ -1,4 +1,4 @@
-import { getCategoryByHandle } from '@lib/data';
+import { getCategoryByParentCategoryId } from '@lib/data';
 import { cn } from '@lib/util/cn';
 import LocalizedClientLink from '@modules/common/components/localized-client-link';
 import React from 'react';
@@ -6,14 +6,10 @@ import { ProductCategoryWithChildren } from '../../../../types/global';
 
 type CategoriesBreadcrumbsProps = {
 	category: ProductCategoryWithChildren;
-	categoriesParams: string[];
 };
 
-export const CategoriesBreadcrumbs = async ({
-	category,
-	categoriesParams,
-}: CategoriesBreadcrumbsProps) => {
-	const pathNames = categoriesParams;
+export const CategoriesBreadcrumbs = async ({ category }: CategoriesBreadcrumbsProps) => {
+	const pathNames: string[] = [category.handle];
 
 	const categoriesNames = new Map([[category.handle, category.name]]);
 
@@ -22,12 +18,16 @@ export const CategoriesBreadcrumbs = async ({
 			category.parent_category.handle,
 			category.parent_category.name
 		);
+		pathNames.unshift(category.parent_category.handle);
 
 		if (category.parent_category?.parent_category_id) {
-			const parentCategory = await getCategoryByHandle([
-				category.parent_category.handle,
-			]).then((result) => result.product_categories[0]);
+			const childWithParent = await getCategoryByParentCategoryId(
+				category.parent_category.parent_category_id
+			).then((result) => result.category);
+
+			const parentCategory = childWithParent.parent_category!;
 			categoriesNames.set(parentCategory.handle, parentCategory.name);
+			pathNames.unshift(parentCategory.handle);
 		}
 	}
 
@@ -39,7 +39,7 @@ export const CategoriesBreadcrumbs = async ({
 				</li>
 				<span className={'lg:block'}>{pathNames.length > 0 && ' / '}</span>
 				{pathNames.map((link, index) => {
-					let href = `/categories/${pathNames.slice(0, index + 1).join('/')}`;
+					let href = `/categories/${link}`;
 
 					const linkName = categoriesNames.get(link) || link;
 

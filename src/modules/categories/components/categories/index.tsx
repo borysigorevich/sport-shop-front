@@ -1,5 +1,5 @@
+import LocalizedClientLink from '@modules/common/components/localized-client-link';
 import Accordion from '@modules/products/components/product-tabs/accordion';
-import Link from 'next/link';
 import React from 'react';
 import { ProductCategoryWithChildren } from '../../../../types/global';
 
@@ -9,6 +9,8 @@ type CategoriesProps = {
 
 export const Categories = ({ category }: CategoriesProps) => {
 	if (!category.category_children?.length) return null;
+
+	console.log({ categoriesChildren: category.category_children }, '***');
 
 	return (
 		<Accordion type={'multiple'} defaultValue={[category.id]}>
@@ -22,16 +24,20 @@ export const Categories = ({ category }: CategoriesProps) => {
 				}
 			>
 				<div className={'pt-2 grid gap-4 pl-1'}>
-					{category.category_children.map((child) => (
-						<Link
-							className={'text-black txt-compact-medium hover:underline'}
-							key={child.id}
-							href={`./${child.handle}`}
-							data-testid="sort-by-link"
-						>
-							{child.name}
-						</Link>
-					))}
+					{category.category_children.map((child) => {
+						return (
+							<LocalizedClientLink
+								className={
+									'text-black txt-compact-medium hover:underline'
+								}
+								key={child.id}
+								href={`/categories/${child.handle}`}
+								data-testid="sort-by-link"
+							>
+								{child.name}
+							</LocalizedClientLink>
+						);
+					})}
 				</div>
 			</Accordion.Item>
 		</Accordion>

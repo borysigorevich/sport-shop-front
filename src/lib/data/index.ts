@@ -714,6 +714,37 @@ export const getCategoryByHandle = cache(async function (
 	};
 });
 
+export const getCategoryByParentCategoryId = cache(async function (
+	parentCategoryId: string,
+	params?: StoreGetProductCategoriesParams
+): Promise<{
+	category: ProductCategoryWithChildren;
+}> {
+
+		const category = await medusaClient.productCategories
+			.list(
+				{
+					parent_category_id: parentCategoryId,
+					include_descendants_tree: false,
+					...params
+				},
+				{
+					next: {
+						tags: ['categories'],
+					},
+				}
+			)
+			.then(({ product_categories: { [0]: category } }) => category)
+			.catch((err) => {
+				return {} as ProductCategory;
+			});
+
+
+	return {
+		category,
+	};
+});
+
 export const getProductsByCategoryHandle = cache(async function ({
 	pageParam = 0,
 	handle,

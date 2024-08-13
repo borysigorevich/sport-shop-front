@@ -46,7 +46,7 @@ const MobileSubCategories = ({
 						headerClassName={'px-6'}
 						headerTitleElement={
 							<LocalizedClientLink
-								href={`/categories/${parentCategory.handle}/${categoryChild.handle}`}
+								href={`/categories/${categoryChild.handle}`}
 								onClick={() => {
 									close();
 								}}
@@ -62,7 +62,7 @@ const MobileSubCategories = ({
 							{categoryChild.category_children.map((child, index) => (
 								<div key={child.id}>
 									<LocalizedClientLink
-										href={`/categories/${parentCategory.handle}/${categoryChild.handle}/${child.handle}`}
+										href={`/categories/${child.handle}`}
 										className={'text-black-26'}
 										onClick={() => {
 											close();
@@ -127,7 +127,7 @@ const DesktopSubCategories = ({
 									className={'min-w-fit whitespace-nowrap'}
 								>
 									<LocalizedClientLink
-										href={`/categories/${parentCategory.handle}/${categoryChild.handle}`}
+										href={`/categories/${categoryChild.handle}`}
 										onClick={() => {
 											close();
 										}}
@@ -145,7 +145,7 @@ const DesktopSubCategories = ({
 												className={'px-6 py-3 last:pb-0'}
 											>
 												<LocalizedClientLink
-													href={`/categories/${parentCategory.handle}/${categoryChild.handle}/${child.handle}`}
+													href={`/categories/${child.handle}`}
 													onClick={() => {
 														close();
 													}}

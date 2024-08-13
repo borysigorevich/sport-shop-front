@@ -1,6 +1,6 @@
 import { AttributesWrapper } from '@modules/categories/components/attributes/attributes-wrapper';
 import { Categories } from '@modules/categories/components/categories';
-import { CategoriesBreadcrumbs } from '@modules/categories/components/categories-breadcrumbs';
+import { CategoriesBreadcrumbsWrapper } from '@modules/categories/components/categories-breadcrumbs/categories-breadcrumbs-wrapper';
 import { ContentGrid } from '@modules/categories/components/content-grid';
 import { Filters } from '@modules/categories/components/filters';
 import { SkeletonProductFilters } from '@modules/skeletons/templates/skeleton-product-filters';
@@ -8,23 +8,22 @@ import SkeletonProductGrid from '@modules/skeletons/templates/skeleton-product-g
 import RefinementList from '@modules/store/components/refinement-list';
 import { SortOptions } from '@modules/store/components/refinement-list/sort-products';
 import PaginatedProducts from '@modules/store/templates/paginated-products';
-import { notFound } from 'next/navigation';
 import React, { Suspense } from 'react';
 import { ProductCategoryWithChildren } from '../../../types/global';
 
 export default async function CategoryTemplate({
-	categories,
+	category,
 	sortBy,
 	page,
 	countryCode,
 	categoryParams,
 	searchParams,
 }: {
-	categories: ProductCategoryWithChildren[];
+	category: ProductCategoryWithChildren;
 	sortBy?: SortOptions;
 	page?: string;
 	countryCode: string;
-	categoryParams: string[];
+	categoryParams: string;
 	searchParams: Record<string, string>;
 }) {
 	let attributesSearchParams = Array.isArray(searchParams['attributes[]'])
@@ -35,15 +34,11 @@ export default async function CategoryTemplate({
 
 	const pageNumber = page ? parseInt(page) : 1;
 
-	const category = categories.at(-1);
-
-	if (!category || !countryCode) notFound();
-
 	return (
 		<div className="py-6 content-container group" data-testid="category-container">
-			<CategoriesBreadcrumbs
-				categoriesParams={categoryParams}
+			<CategoriesBreadcrumbsWrapper
 				category={category}
+				categoryParams={categoryParams}
 			/>
 
 			<ContentGrid>
