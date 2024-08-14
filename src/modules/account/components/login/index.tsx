@@ -31,7 +31,6 @@ const Login = ({ setCurrentView }: Props) => {
 						title="Enter a valid email address."
 						autoComplete="email"
 						required
-						data-testid="email-input"
 					/>
 					<Input
 						label="Password"

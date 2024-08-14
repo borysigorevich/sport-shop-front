@@ -1,6 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { PricedProduct, PricedVariant } from '@medusajs/medusa/dist/types/pricing';
-import { Button, clx } from '@medusajs/ui';
+import { clx } from "@medusajs/ui"
+import { Button } from "@ui/button"
 import React, { Fragment, useMemo } from 'react';
 
 import useToggleState from '@lib/hooks/use-toggle-state';

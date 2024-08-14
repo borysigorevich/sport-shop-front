@@ -3,10 +3,10 @@
 import { useIntersection } from '@lib/hooks/use-in-view';
 import { Region } from '@medusajs/medusa';
 import { PricedProduct } from '@medusajs/medusa/dist/types/pricing';
-import { Button } from '@medusajs/ui';
 import { addToCart } from '@modules/cart/actions';
 import Divider from '@modules/common/components/divider';
 import OptionSelect from '@modules/products/components/option-select';
+import { Button } from "@ui/button"
 import { isEqual } from 'lodash';
 import { useParams } from 'next/navigation';
 import { useEffect, useMemo, useRef, useState } from 'react';

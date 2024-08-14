@@ -2,7 +2,7 @@
 
 import { Popover, Transition } from '@headlessui/react';
 import { Cart } from '@medusajs/medusa';
-import { Button } from '@medusajs/ui';
+import { Button } from "@ui/button"
 import { useParams, usePathname } from 'next/navigation';
 import { Fragment, useEffect, useRef, useState } from 'react';
 
@@ -105,7 +105,7 @@ const CartDropdown = ({
 										})
 										.map((item) => (
 											<div
-												className="grid grid-cols-[122px_1fr] gap-x-4"
+												className="grid grid-cols-[auto_1fr] gap-x-4"
 												key={item.id}
 												data-testid="cart-item"
 											>
@@ -191,7 +191,7 @@ const CartDropdown = ({
 									</div>
 									<LocalizedClientLink href="/cart" passHref>
 										<Button
-											className="w-full"
+											className="w-full rounded-none [&_div]:rounded-none"
 											size="large"
 											data-testid="go-to-cart-button"
 										>
