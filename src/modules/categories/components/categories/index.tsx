@@ -31,6 +31,7 @@ export const Categories = ({ category }: CategoriesProps) => {
 								key={child.id}
 								href={`/categories/${child.handle}`}
 								data-testid="sort-by-link"
+								scroll={false}
 							>
 								{child.name}
 							</LocalizedClientLink>

@@ -75,7 +75,7 @@ const RefinementList = ({
 		const query = createQueryString(name, value);
 		startTransition(() => {
 			setOptimisticSortBy(value as SortOptions);
-			router.push(`${pathname}?${query}`);
+			router.push(`${pathname}?${query}`, {scroll: false});
 		});
 	};
 

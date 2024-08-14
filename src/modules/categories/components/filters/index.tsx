@@ -5,7 +5,6 @@ import { X } from 'lucide-react';
 import React, { PropsWithChildren } from 'react';
 
 export const Filters = ({ children }: PropsWithChildren) => {
-
 	return (
 		<>
 			<Popover className={'-mt-6 lg:hidden'}>
@@ -20,7 +19,11 @@ export const Filters = ({ children }: PropsWithChildren) => {
 					ref={removeScrollbar}
 				>
 					<div className={'flex flex-col justify-between h-full items-center'}>
-						<div className={'absolute top-0 w-full shadow-popover flex py-2 px-4 items-center justify-end bg-white'}>
+						<div
+							className={
+								'absolute top-0 w-full shadow-popover flex py-2 px-4 items-center justify-end bg-white'
+							}
+						>
 							<PopoverButton>
 								<X />
 							</PopoverButton>
@@ -40,9 +43,9 @@ export const Filters = ({ children }: PropsWithChildren) => {
 				</PopoverPanel>
 			</Popover>
 
-			<div
-					id={'filter-sidebar'}
-				className={'hidden lg:block overflow-hidden'}>{children}</div>
+			<div id={'filter-sidebar'} className={'hidden lg:block overflow-hidden'}>
+				{children}
+			</div>
 		</>
 	);
 };

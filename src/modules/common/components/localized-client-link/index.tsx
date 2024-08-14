@@ -19,6 +19,7 @@ const LocalizedClientLink = ({
 	onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
 	passHref?: true;
 	[x: string]: any;
+	scroll?: boolean;
 }) => {
 	const { countryCode } = useParams();
 

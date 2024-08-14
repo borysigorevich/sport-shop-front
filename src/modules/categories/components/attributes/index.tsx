@@ -54,7 +54,9 @@ export const Attributes = ({ attributes, attributesSearchParams }: AttributesPro
 		newAttributes.forEach((attr) => searchParams.append('attributes[]', attr));
 
 		startTransition(() => {
-			router.push(`?${searchParams}`);
+			router.push(`?${searchParams}`, {
+				scroll: false
+			});
 			setOptimisticAttributesSearchParams(newAttributes);
 		});
 	};
