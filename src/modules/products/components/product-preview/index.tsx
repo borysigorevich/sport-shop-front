@@ -1,8 +1,8 @@
 import { retrievePricedProductById } from '@lib/data';
 import { getProductPrice } from '@lib/util/get-product-price';
 import { Region } from '@medusajs/medusa';
+import { Text } from '@medusajs/ui';
 import LocalizedClientLink from '@modules/common/components/localized-client-link';
-import { AddToCart } from '@modules/products/components/product-preview/add-to-cart';
 import { ProductPreviewType } from 'types/global';
 import Thumbnail from '../thumbnail';
 import PreviewPrice from './price';
@@ -42,11 +42,13 @@ export default async function ProductPreview({
 					isFeatured={isFeatured}
 				/>
 			</LocalizedClientLink>
-			<div className="flex txt-compact-medium mt-4 justify-between">
-				<div className="flex items-center gap-x-2 text-black">
+			<div className="flex flex-col txt-compact-medium mt-4 justify-between">
+				<Text className="text-black" data-testid="product-title">
+					{productPreview.title}
+				</Text>
+				<div className="flex items-center gap-x-2">
 					{cheapestPrice && <PreviewPrice price={cheapestPrice} />}
 				</div>
-				<AddToCart productId={productPreview.id} countryCode={region.name} />
 			</div>
 		</div>
 	);
