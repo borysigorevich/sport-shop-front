@@ -1,7 +1,6 @@
 import { Region } from '@medusajs/medusa';
 import { PricedProduct } from '@medusajs/medusa/dist/types/pricing';
 import { CategoriesBreadcrumbsWrapper } from '@modules/categories/components/categories-breadcrumbs/categories-breadcrumbs-wrapper';
-
 import ImageGallery from '@modules/products/components/image-gallery';
 import ProductActions from '@modules/products/components/product-actions';
 import ProductOnboardingCta from '@modules/products/components/product-onboarding-cta';
@@ -45,7 +44,7 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
 						<div className={'lg:hidden'}>
 							<ProductInfo product={product} />
 						</div>
-						<ImageGallery images={product?.images || []} />
+						<ImageGallery images={product?.images && product?.images.length ? [product?.images[0]] : []} />
 					</div>
 					<div className="flex flex-col small:sticky small:top-48 small:py-0 small:max-w-[300px] w-full py-8 gap-y-4">
 						<div className={'hidden lg:block'}>
