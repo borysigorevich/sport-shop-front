@@ -281,7 +281,7 @@ const CategoriesMenu = ({ categories }: CategoriesMenuProps) => {
 
 						<PopoverBackdrop
 							transition
-							className="fixed inset-0 data-[closed]:opacity-0 lg:backdrop-blur-sm transition-all bg-black/15 -z-10"
+							className="fixed inset-0 data-[closed]:opacity-0 lg:backdrop-blur-sm transition-all -z-10"
 						/>
 
 						<PopoverPanel
