@@ -6,7 +6,7 @@ import { PricedProduct } from '@medusajs/medusa/dist/types/pricing';
 import { addToCart } from '@modules/cart/actions';
 import Divider from '@modules/common/components/divider';
 import OptionSelect from '@modules/products/components/option-select';
-import { Button } from "@ui/button"
+import { Button } from '@ui/button';
 import { isEqual } from 'lodash';
 import { useParams } from 'next/navigation';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -91,7 +91,27 @@ export default function ProductActions({
 
 	// update the options when a variant is selected
 	const updateOptions = (update: Record<string, string>) => {
-		setOptions({ ...options, ...update });
+		const optionId = Object.keys(update)[0];
+		const variantId = product.options
+			?.find((option) => option.id === optionId)
+			?.values.find((value) => value.value === update[optionId])?.variant_id;
+
+		const newOptions = {
+			...update,
+		};
+
+		product.options?.forEach((options) => {
+			if (options.id === optionId) return null;
+
+			const matchingValue = options.values.find(
+				(value) => value.variant_id === variantId
+			);
+			if (matchingValue) {
+				newOptions[options.id] = matchingValue.value;
+			}
+		});
+
+		setOptions({ ...newOptions });
 	};
 
 	// check if the selected variant is in stock
@@ -133,6 +153,8 @@ export default function ProductActions({
 
 		setIsAdding(false);
 	};
+
+	console.log(product.options, '***');
 
 	return (
 		<>
