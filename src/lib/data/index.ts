@@ -1,7 +1,8 @@
 import {
 	ProductCategory,
 	ProductCollection,
-	Region, StoreGetProductCategoriesParams,
+	Region,
+	StoreGetProductCategoriesParams,
 	StoreGetProductsParams,
 	StorePostAuthReq,
 	StorePostCartsCartReq,
@@ -9,7 +10,7 @@ import {
 	StorePostCustomersCustomerAddressesReq,
 	StorePostCustomersCustomerReq,
 	StorePostCustomersReq,
-} from "@medusajs/medusa"
+} from '@medusajs/medusa';
 import { PricedProduct } from '@medusajs/medusa/dist/types/pricing';
 import { cache } from 'react';
 
@@ -642,7 +643,9 @@ export const getProductsByCollectionHandle = cache(
 );
 
 // Category actions
-export const listCategories = cache(async function (params?: StoreGetProductCategoriesParams) {
+export const listCategories = cache(async function (
+	params?: StoreGetProductCategoriesParams
+) {
 	const headers = {
 		next: {
 			tags: ['collections'],
@@ -694,7 +697,7 @@ export const getCategoryByHandle = cache(async function (
 			.list(
 				{
 					handle: handle,
-					...params
+					...params,
 				},
 				{
 					next: {
@@ -721,25 +724,23 @@ export const getCategoryByParentCategoryId = cache(async function (
 ): Promise<{
 	category: ProductCategoryWithChildren;
 }> {
-
-		const category = await medusaClient.productCategories
-			.list(
-				{
-					parent_category_id: parentCategoryId,
-					include_descendants_tree: false,
-					...params
+	const category = await medusaClient.productCategories
+		.list(
+			{
+				parent_category_id: parentCategoryId,
+				include_descendants_tree: false,
+				...params,
+			},
+			{
+				next: {
+					tags: ['categories'],
 				},
-				{
-					next: {
-						tags: ['categories'],
-					},
-				}
-			)
-			.then(({ product_categories: { [0]: category } }) => category)
-			.catch((err) => {
-				return {} as ProductCategory;
-			});
-
+			}
+		)
+		.then(({ product_categories: { [0]: category } }) => category)
+		.catch((err) => {
+			return {} as ProductCategory;
+		});
 
 	return {
 		category,

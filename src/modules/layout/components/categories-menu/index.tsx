@@ -27,7 +27,7 @@ const MobileSubCategories = ({
 				onClick={back}
 			>
 				<span className={'text-xl text-black'}>
-					<ChevronLeft/>
+					<ChevronLeft />
 				</span>
 				<h3 className={'text-xl text-red-base font-bold'}>
 					{parentCategory.name}

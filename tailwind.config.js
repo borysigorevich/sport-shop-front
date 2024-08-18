@@ -38,7 +38,7 @@ module.exports = {
 				'black-26': 'rgba(26,26,26)',
 				red: {
 					base: '#e60d2e',
-				}
+				},
 			},
 			borderRadius: {
 				none: '0px',
@@ -49,7 +49,7 @@ module.exports = {
 				circle: '9999px',
 			},
 			boxShadow: {
-				popover: 'var(--popover-shadow)'
+				popover: 'var(--popover-shadow)',
 			},
 			maxWidth: {
 				'8xl': '100rem',

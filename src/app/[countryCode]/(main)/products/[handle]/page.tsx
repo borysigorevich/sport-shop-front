@@ -63,7 +63,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 const getPricedProductByHandle = async (handle: string, region: Region) => {
 	const { product } = await getProductByHandle(handle, {
-		expand: 'categories'
+		expand: 'categories',
 	}).then((product) => product);
 
 	if (!product || !product.id) {

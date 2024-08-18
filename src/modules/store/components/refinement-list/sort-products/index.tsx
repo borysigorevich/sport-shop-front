@@ -49,7 +49,10 @@ const SortProducts = ({
 				<div className="relative">
 					<ListboxButton className="group min-w-fit relative w-full flex items-center gap-2 cursor-pointer bg-white p-1.5 text-left text-gray-900 focus:outline-none focus-visible:ring-1 focus-visible:ring-black/15 text-sm sm:leading-6">
 						<span className="block truncate">{labelToShow}</span>
-						<ChevronDown className={'transition group-data-[open]:rotate-180'} size={'18px'}/>
+						<ChevronDown
+							className={'transition group-data-[open]:rotate-180'}
+							size={'18px'}
+						/>
 					</ListboxButton>
 
 					<ListboxOptions

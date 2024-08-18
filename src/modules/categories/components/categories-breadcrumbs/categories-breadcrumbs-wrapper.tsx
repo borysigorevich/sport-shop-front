@@ -1,6 +1,6 @@
-import { getCategoryByHandle } from "@lib/data"
-import { CategoriesBreadcrumbs } from "@modules/categories/components/categories-breadcrumbs/index"
-import { notFound } from "next/navigation"
+import { getCategoryByHandle } from '@lib/data';
+import { CategoriesBreadcrumbs } from '@modules/categories/components/categories-breadcrumbs/index';
+import { notFound } from 'next/navigation';
 import React from 'react';
 import { ProductCategoryWithChildren } from '../../../../types/global';
 

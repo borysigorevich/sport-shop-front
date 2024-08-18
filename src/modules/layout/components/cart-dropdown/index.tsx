@@ -2,7 +2,7 @@
 
 import { Popover, Transition } from '@headlessui/react';
 import { Cart } from '@medusajs/medusa';
-import { Button } from "@ui/button"
+import { Button } from '@ui/button';
 import { useParams, usePathname } from 'next/navigation';
 import { Fragment, useEffect, useRef, useState } from 'react';
 
@@ -213,7 +213,10 @@ const CartDropdown = ({
 												<span className="sr-only">
 													Go to all products page
 												</span>
-												<Button onClick={close} className={'rounded-none'}>
+												<Button
+													onClick={close}
+													className={'rounded-none'}
+												>
 													Explore products
 												</Button>
 											</>

@@ -1,4 +1,4 @@
-import { getCategoriesList, getRegion, listCategories } from "@lib/data"
+import { getCategoriesList, getRegion, listCategories } from '@lib/data';
 import { CategoryPreview } from '@modules/categories/components/category-preview';
 import { Metadata } from 'next';
 
@@ -19,7 +19,7 @@ export default async function Home({
 }: {
 	params: { countryCode: string };
 }) {
-	const categories = await listCategories()
+	const categories = await listCategories();
 
 	const region = await getRegion(countryCode);
 
@@ -27,7 +27,9 @@ export default async function Home({
 		return null;
 	}
 
-	const highLevelCategories = categories.filter((category) => category.parent_category_id === null);
+	const highLevelCategories = categories.filter(
+		(category) => category.parent_category_id === null
+	);
 
 	return (
 		<>

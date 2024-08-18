@@ -62,21 +62,23 @@ const Item: React.FC<AccordionItemProps> = ({
 			)}
 		>
 			{/*@ts-ignore*/}
-			<AccordionPrimitive.Header className={cn("px-1", headerClassName)}>
+			<AccordionPrimitive.Header className={cn('px-1', headerClassName)}>
 				<div className="flex flex-col">
 					{/*@ts-ignore*/}
 					<AccordionPrimitive.Trigger
 						className={'flex w-full items-center justify-between'}
 					>
 						<div className="flex items-center gap-4">
-							{headerTitleElement || <Text
-								className={cn(
-									'text-ui-fg-subtle text-sm',
-									headerTitleClassName
-								)}
-							>
-								{title}
-							</Text>}
+							{headerTitleElement || (
+								<Text
+									className={cn(
+										'text-ui-fg-subtle text-sm',
+										headerTitleClassName
+									)}
+								>
+									{title}
+								</Text>
+							)}
 						</div>
 						{!props.disabled && (customTrigger || <MorphingTrigger />)}
 					</AccordionPrimitive.Trigger>

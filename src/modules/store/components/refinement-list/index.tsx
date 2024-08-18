@@ -75,7 +75,7 @@ const RefinementList = ({
 		const query = createQueryString(name, value);
 		startTransition(() => {
 			setOptimisticSortBy(value as SortOptions);
-			router.push(`${pathname}?${query}`, {scroll: false});
+			router.push(`${pathname}?${query}`, { scroll: false });
 		});
 	};
 
@@ -87,7 +87,7 @@ const RefinementList = ({
 			)}
 			data-sort-by-pending={isPending ? '' : undefined}
 		>
-			<FilterToggle/>
+			<FilterToggle />
 
 			<div
 				className={

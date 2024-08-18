@@ -44,7 +44,13 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
 						<div className={'lg:hidden'}>
 							<ProductInfo product={product} />
 						</div>
-						<ImageGallery images={product?.images && product?.images.length ? [product?.images[0]] : []} />
+						<ImageGallery
+							images={
+								product?.images && product?.images.length
+									? [product?.images[0]]
+									: []
+							}
+						/>
 					</div>
 					<div className="flex flex-col small:sticky small:top-48 small:py-0 small:max-w-[300px] w-full py-8 gap-y-4">
 						<div className={'hidden lg:block'}>

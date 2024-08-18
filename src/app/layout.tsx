@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import 'styles/globals.css';
-import { ProximaNova } from "./_fonts"
+import { ProximaNova } from './_fonts';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://localhost:8000';
 
